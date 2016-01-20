@@ -1,0 +1,31 @@
+<%= bootstrap_form_for(@classlist) do |f| %>
+  <% if @classlist.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@classlist.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+          <% @classlist.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+      </ul>
+    </div>
+  <% end %>
+           
+
+  <div class="container">    
+    <%=@classlist.classfullname %>
+    <hr class="style1"><br>
+    <div class="row">
+      <%= f.fields_for :classdocuments do |builder| %>
+        <%= render "classdocument_fields", :f => builder if builder.object.new_record? %>
+      <% end %>
+    </div>
+    <div class="row">
+      <div class="col-sm-12" style="text-align:center;">
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

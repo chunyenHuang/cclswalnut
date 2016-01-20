@@ -1,0 +1,51 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pickup: 2015-08-14
+  deadline: 2015-08-14
+  rushnote: MyString
+  ordernumber: MyString
+  kind: MyString
+  gold: MyString
+  size: 1.5
+  quantity: 1
+  description: MyText
+  picture: MyString
+  caddesigners: MyString
+  string: MyString
+  setters: MyString
+  status_factory: MyString
+  status_shipping: MyString
+  customer_name: MyString
+  customer_phone: MyString
+  itemnumber: 1
+  invoicenumber: 1
+  status1: 
+  status2: 
+  created_at: 2015-08-14 12:54:15
+  updated_at: 2015-08-14 12:54:15
+
+two:
+  pickup: 2015-08-14
+  deadline: 2015-08-14
+  rushnote: MyString
+  ordernumber: MyString
+  kind: MyString
+  gold: MyString
+  size: 1.5
+  quantity: 1
+  description: MyText
+  picture: MyString
+  caddesigners: MyString
+  string: MyString
+  setters: MyString
+  status_factory: MyString
+  status_shipping: MyString
+  customer_name: MyString
+  customer_phone: MyString
+  itemnumber: 1
+  invoicenumber: 1
+  status1: 
+  status2: 
+  created_at: 2015-08-14 12:54:15
+  updated_at: 2015-08-14 12:54:15

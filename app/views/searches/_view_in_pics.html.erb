@@ -1,0 +1,96 @@
+
+<table class="table">
+  <thead>
+    <tr class="head">
+      <td><b><%= sortable "rushnote", "Rush" %></td>
+      <td><b><%= sortable "pickup", "GetAt" %></td>
+      <td><b><%= sortable "deadline", "Deadline" %></td>
+      <td width="130px"><b><%= sortable "customer_id","Company" %></td>
+      <td><b><%= sortable "ordernumber","Order#" %></td>
+      <td width="200px"><b>pics</b></td>
+      <td width="350px"><b><%= sortable "description","Description"%></td>
+      <td><b><%= sortable "center_carat","Center"%></b></td>
+      <td width="150px"><b><%= sortable "category","Category" %></td>
+
+      <td><b><%= sortable "gold" %></td>
+      <td><b><%= sortable "size" %></td>
+      <td><b><%= sortable "quantity","Q" %></td>      
+      <td><b><%= sortable "caddesigners", "CAD" %></td>
+      <td><b><%= sortable "setters","Set" %></td>
+      <td><b><%= sortable "status_factory","Status" %></td>
+      
+      <td><b><%= sortable "itemnumber","Item#" %></td>
+      <td><b><%= sortable "invoicenumber","Invoice#" %></td>
+      <td colspan="2"></td>
+
+    </tr>
+  </thead>
+
+
+<tbody>
+    
+<% @search.search_orderlists.each do |orderlist| %>
+     <tr class="general">
+                  <td><font color=red><b><%= orderlist.rushnote %></b></font></td>
+                  <td><%= orderlist.pickup.strftime("%b%d") %></td>
+                  <td><%= distance_of_time_custom(Time.now, orderlist.deadline) %></td>
+                  <td><%= link_to orderlist.customer.customer_firstname + " " + orderlist.customer.customer_lastname, :controller => 'customers', :action => 'show', :id => orderlist.customer_id %><br>
+                    <%= orderlist.customer.customer_number%>
+                    <br><br>
+                  <% if orderlist.customer.customer_company.present? %>
+                  Company<br>
+                  <%= link_to "["+orderlist.customer.customer_company+"]", :controller => 'customers', :action => 'showcompany', search: orderlist.customer.customer_company %><%end%></td>          
+                 
+                  <td><%= link_to orderlist.ordernumber, orderlist %></td>
+                  <td>
+                      <% if orderlist.picture.present? %>
+                        <%= link_to(image_tag(orderlist.picture_url(:thumb), :height => "120", :border => 0), orderlist )%>
+                    <% elsif orderlist.picture2.present? %>
+                        <%= link_to(image_tag(orderlist.picture2_url(:thumb), :height => "120", :border => 0), orderlist )%>
+                    <% elsif orderlist.picture3.present? %>
+                        <%= link_to(image_tag(orderlist.picture3_url(:thumb), :height => "120", :border => 0), orderlist )%>
+                    <% elsif orderlist.picture4.present? %>
+                        <%= link_to(image_tag(orderlist.picture4_url(:thumb), :height => "120", :border => 0), orderlist )%>
+                    <% elsif orderlist.picture5.present? %>
+                        <%= link_to(image_tag(orderlist.picture5_url(:thumb), :height => "120", :border => 0), orderlist )%>
+                    <% elsif orderlist.picture6.present? %>
+                        <%= link_to(image_tag(orderlist.picture6_url(:thumb), :height => "120", :border => 0), orderlist )%>
+                    <% elsif orderlist.picture7.present? %>
+                        <%= link_to(image_tag(orderlist.picture7_url(:thumb), :height => "120", :border => 0), orderlist )%>
+                    <% else %>
+                        <%= link_to(image_tag(orderlist.picture8_url(:thumb), :height => "120", :border => 0), orderlist )%>
+                    <% end %>
+                  </div>
+                </td>
+                  <td><%= best_in_place orderlist, :description, :type => :textarea,  :ok_button => 'Save', :cancel_button => 'Cancel'  %></td>
+                  <td><%= orderlist.center_carat%></td>
+                  <td><%= link_to orderlist.category, controller: "orderlists", action:"allorder", search: orderlist.category %></td>
+                  
+
+                  <td><%= orderlist.gold %></td>
+                  <td><%= orderlist.size %></td>
+                  <td>x<%= orderlist.quantity %></td>
+                  <td><%= link_to orderlist.caddesigners, controller: "orderlists", action:"allorder", search: orderlist.caddesigners %></td>
+                  <td><%= link_to orderlist.setters, controller: "orderlists", action:"allorder", search: orderlist.setters %></td>
+                  <td><%= best_in_place orderlist, :status_factory, :as => :select, :collection => [[orderlist.status_factory,orderlist.status_factory],['1.CADing','1.CADing'],['2.Printed','2.Printed'],['3.Casted','3.Casted'],['4.Setting','4.Setting'],['Finished','5.Finished'],['6.Ship/Pick','6.Ship/Pick'],['7.Downtown','7.Downtown']] %></td>
+                  
+                  
+                  
+                  
+
+
+
+
+
+                  <td><%= best_in_place orderlist, :itemnumber %></td>
+
+                  <td><%= best_in_place orderlist, :invoicenumber %></td>
+                  <td><%= link_to 'Detail', orderlist %></td>
+                  <td><%= link_to 'Edit', edit_orderlist_path(orderlist) %></td>
+              </tr>
+
+    <% end %>
+  </tbody>
+  
+
+</table>

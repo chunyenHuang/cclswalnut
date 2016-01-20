@@ -1,0 +1,100 @@
+<div class="container" style="background-color:transparent;">
+  <div class="noprint">
+    <div class="row">       
+      <div class="col-md-12">
+        <center><%= will_paginate @students, :class=>"pagination" %></center>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr class="head">
+            <th style="width:10%;">
+              <b>Picture
+            </th>
+            
+            <th style="width:8%;">
+              <b><%= sortable "name_chinese", "姓名" %>
+            </th>
+            <th style="width:8%;">
+              <b><%= sortable "firstname", "Firstname" %>
+            </th>
+            <th style="width:8%;">
+              <b><%= sortable "lastname", "Lastname" %>
+            </th>
+            <th>
+              <b><%= sortable "phone1", "Phone#" %>
+            </th>
+            <th>
+              <b>current class
+            </th>
+            <th>
+              <b><%= sortable "member_id", "Parents" %>
+            </th>
+            <th class="noprint" style="width:8%;">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @students.each do |student| %>
+            <tr>
+              <td>
+                <% if student.picture1.present? %>
+                  <%= link_to(image_tag(student.picture1_url(:thumb), :height => "75", :border => 0), student )%>
+                <%else%>
+                  <img src="/images/default_profile.jpg" style="height:100px" />
+                <% end %>
+              </td>
+              
+              <td>
+                <%= best_in_place student,:name_chinese %>
+              </td>
+              <td>
+                <%= best_in_place student,:firstname %>
+              </td>
+              <td>
+                <%= best_in_place student,:lastname %>
+              </td>
+              <td>
+                <%= best_in_place student,:phone1 %>
+              </td>
+              <td>
+                <% if student.classinfos.any? %>
+                  <% student.classinfos.where(:classlist_id => Classlist.where(active: true)).each do |classinfo| %>
+                    <%= link_to classinfo.classlist.classfullname, :controller => 'classlists', :action => 'show', :id => classinfo.classlist_id, target: '_blank'  %><br>
+                  <% end %>
+                <%else%>
+                  N/A
+                <%end%>
+              </td>
+              
+              <td>
+                <%= link_to student.member.father_fullname, :controller => 'members', :action => 'show', :id => student.member_id %>
+                <br>
+                #: <%= student.member.father_phone1 %>
+                <br>
+                <%= link_to student.member.mother_fullname, :controller => 'members', :action => 'show', :id => student.member_id %>
+                <br>
+                #: <%= student.member.mother_phone1 %>
+              </td>
+              <td>
+                <%= link_to 'Detail', :controller => 'members', :action => 'show', :id => student.member_id %>
+                <br>
+                <%= link_to 'Edit', edit_student_path(student) %>
+                <br>
+                <%= link_to 'Dup', :controller => 'students', :action => :duplicate, :id => student.id %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <center><%= will_paginate @students, :class=>"pagination" %></center>
+    </div>
+  </div>
+</div>

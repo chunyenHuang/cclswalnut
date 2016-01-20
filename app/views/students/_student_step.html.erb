@@ -1,0 +1,67 @@
+<div class="not-display"><%= f.select(:user_name, [[current_user.nickname , current_user.nickname ]]) %></div>
+
+
+<div class="container">    
+  <div class="row">
+    <div class="col-sm-2">
+      <%= f.text_field :name_chinese %>  
+      <%= f.text_field :firstname %> 
+      <%= f.text_field :lastname %> 
+      <%= f.text_field :middlename %> 
+      <%= f.text_field :nickname %>  
+
+      <%= f.text_field :birthday, :data=>{:provide => "datepicker"} %>
+    </div>
+    <div class="col-sm-2">
+      <%= f.text_field :phone1, :id=>"phone" %> 
+      <%= f.text_field :phone2, :id=>"phone2" %> 
+      <%= f.text_field :phone3, :id=>"phone3" %> 
+      <%= f.text_field :email1 %>  
+      <%= f.text_field :email2 %>  
+    </div>  
+    <div class="col-sm-2">
+
+      <%= f.select :school_elementary, grouped_options_for_select={
+                    "San Marino" => [['Carver'],['Valentine'],['Clairbourn']],
+                    'Other' => [['other1'],['other2']]
+                  } , :prompt => "please select..."
+                  %>
+      <%= f.select :school_junior, grouped_options_for_select={
+                    "San Marino" => [['Huntington Middle School']],
+                    'Other' => [['other1'],['other2']]
+                  } , :prompt => "please select..."
+                  %>
+      <%= f.select :school_high, grouped_options_for_select={
+                    "San Marino" => [['San Marino High School']],
+                    'Other' => [['other1'],['other2']]
+                  } , :prompt => "please select..."
+                  %>
+      <!--<%= f.select :member_id, options_from_collection_for_select(Member.order(father_firstname: :asc), :id, :father_firstname, @T), :prompt => "select..." %>!-->
+        
+      <%= f.text_area :note, cols: "30", rows: "5" %>
+
+    </div>
+    <div class="col-sm-3">
+      <!--
+      <%= f.select :teacher_id, User.where(check_teacher: true).map { |i| [i.name, i.id ] }, :prompt => "select...",:size=>5 %>   
+      !-->
+           <p><b>Class Info</b>
+            <%= f.fields_for :classinfos do |builder| %>
+            <%= render "classinfo_fields", :f => builder %>
+            <% end %>
+    </div>
+    <div class="col-sm-3">
+            <%= f.file_field :picture1 %><br>
+            <%= image_tag(@student.picture1_url(:thumb) ,height: "120px") if @student.picture1.present? %>
+
+            <%= f.file_field :picture2 %><br>
+            <%= image_tag(@student.picture2_url(:thumb) ,height: "120px") if @student.picture2.present? %>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="actions">
+      <center><div class="actions"><%= f.submit %></div>
+  </div>
+</div>
+  

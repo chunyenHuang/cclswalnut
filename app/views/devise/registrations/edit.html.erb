@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>Edit <%= resource_name.to_s.humanize %></h2>
+    </div>
+    <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= devise_error_messages! %>
+    <div class="col-sm-3">
+      <%= f.email_field :email, autofocus: true %>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
+      <%= f.text_field :name, autofocus: true %>
+      <%= f.text_field :firstname, autofocus: true %>
+      <%= f.text_field :lastname, autofocus: true %>
+      <%= f.text_field :middlename %>
+      <i>(leave blank if you don't want to change it)</i><br />
+      <%= f.password_field :password, autocomplete: "off" %>
+      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      <i>(we need your current password to confirm your changes)</i><br />
+      <%= f.password_field :current_password, autocomplete: "off" %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.text_field :phone_mobile, :id=>"phone"  %>
+      <%= f.text_field :phone_home, :id=>"phone2"  %>
+      <%= f.text_field :phone_work, :id=>"phone3"  %>
+      <%= f.text_field :address_street %>
+      <%= f.text_field :address_city %>
+      <%= f.text_field :address_state %>
+      <%= f.text_field :address_zipcode %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.file_field :pic1 %><br>
+      <%= image_tag(@user.pic1_url(:thumb) ,height: "120px") if @user.pic1.present? %>
+      <%= f.file_field :pic2 %><br>
+      <%= image_tag(@user.pic2_url(:thumb) ,height: "120px") if @user.pic2.present? %>
+      <%= f.file_field :pic3 %><br>
+      <%= image_tag(@user.pic3_url(:thumb) ,height: "120px") if @user.pic3.present? %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.text_field :contact1_name %>
+      <%= f.text_field :contact1_phone, :id=>"phone4"  %>
+      <%= f.text_field :contact1_relationship %>
+      <%= f.text_field :contact2_name %>
+      <%= f.text_field :contact2_phone, :id=>"phone5"  %>
+      <%= f.text_field :contact2_relationship %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12" style="text-align:center;">
+      <div class="actions">
+        <%= f.submit "Update" %>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>

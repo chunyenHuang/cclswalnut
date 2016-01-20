@@ -1,0 +1,63 @@
+<%= bootstrap_form_for(@member) do |f| %>
+<div class="not-display"><%= f.select(:user_name, [[current_user.name , current_user.name ]]) %></div>
+<div class="container">
+  <div class="actions">
+      <center><div class="actions"><%= f.submit %></div>
+  </div>
+</div>
+
+<div class="container">    
+  <div class="row">
+    <div class="col-sm-2 col-sm-offset-4">
+      <%= f.text_field :mother_name_chinese %>  
+      <%= f.text_field :mother_firstname %> 
+      <%= f.text_field :mother_lastname %> 
+      <%= f.text_field :mother_middlename %> 
+      <%= f.text_field :mother_phone1, :id=>"phone" %> 
+      <%= f.text_field :mother_phone2, :id=>"phone2" %> 
+      <%= f.text_field :mother_phone3, :id=>"phone3" %> 
+      <%= f.text_field :mother_email1 %>  
+      <%= f.text_field :mother_email2 %>  
+      <p>------
+      <%= f.text_field :address1_street %> 
+      <%= f.text_field :address1_city %> 
+      <%= f.text_field :address1_state %> 
+      <%= f.text_field :address1_zipcode %> 
+      <%= f.file_field :mother_picture %><br>
+      <%= image_tag(@member.mother_picture_url(:thumb) ,height: "120px") if @member.mother_picture.present? %>
+    </div>
+    <div class="col-sm-2">
+      <%= f.text_field :father_name_chinese %>  
+      <%= f.text_field :father_firstname %> 
+      <%= f.text_field :father_lastname %> 
+      <%= f.text_field :father_middlename %> 
+      <%= f.text_field :father_phone1, :id=>"phone4" %> 
+      <%= f.text_field :father_phone2, :id=>"phone5" %> 
+      <%= f.text_field :father_phone3, :id=>"phone6" %> 
+      <%= f.text_field :father_email1 %>  
+      <%= f.text_field :father_email2 %>  
+      <p><%= f.check_box :check_address_same %>
+      <%= f.text_field :address2_street %> 
+      <%= f.text_field :address2_city %> 
+      <%= f.text_field :address2_state %> 
+      <%= f.text_field :address2_zipcode %> 
+      <%= f.file_field :father_picture,:type=>"file"%><br>
+      <%= image_tag(@member.father_picture_url(:thumb) ,height: "120px") if @member.father_picture.present? %>
+    </div>
+  </div>
+</div>
+
+<%= f.fields_for :students do |builder| %>
+  <%= render "student_fields", :f => builder %>
+<% end %>
+
+<div class="container">
+  <div class="actions">
+      <center><div class="actions"><%= f.submit %></div>
+  </div>
+</div>
+  
+<% end %>
+
+
+

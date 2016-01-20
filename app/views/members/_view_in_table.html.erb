@@ -1,0 +1,124 @@
+<div class="container" style="background-color:transparent;">
+  
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr class="head">
+            <th style="width:8%;">
+              <b>Picture
+            </th>
+            <th style="width:8%;">
+              <b><%= sortable "father_name_chinese", "姓名" %>
+            </th>
+            <th style="width:8%;">
+              <b><%= sortable "father_lastname", "Name" %>
+            </th>
+            <th>
+              <b>Phone#
+            </th>
+            <th style="width:8%;">
+              <b>Picture
+            </th>
+            <th style="width:8%;">
+              <b><%= sortable "mother_lastname", "姓名" %>
+            </th>
+            <th style="width:8%;">
+           
+              <b><%= sortable "mother_lastname", "Lastname" %>
+            </th>
+            <th>
+              <b>Phone#
+            </th>
+            <th>
+              Children
+            </th>
+            <th>
+              <%= sortable "balance", "Balance" %>
+            </th>
+            <th>
+              <%= sortable "lastpay", "Last Pay" %>
+            </th>
+            <th class="noprint" style="width:8%;">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @members.each do |member| %>
+            <tr>
+              <td>
+                <% if member.father_picture.present?%>
+                  <%= link_to(image_tag(member.father_picture_url(:thumb), :height => "75", :border => 0), member )%>
+                <%else%>
+                  <img src="/images/default_profile.jpg" style="height:50px" />
+                <%end%>
+              </td>
+              <td>
+                <%= best_in_place member,:father_name_chinese %>
+              </td>
+              <td>
+                <%= member.father_firstname %>  <%= member.father_lastname %>
+              </td>
+              <td>
+                <%= best_in_place member,:father_phone1 %>
+              </td>
+
+              <td>
+                <% if member.mother_picture.present?%>
+                  <%= link_to(image_tag(member.mother_picture_url(:thumb), :height => "75", :border => 0), member )%>
+                <%else%>
+                  <img src="/images/default_profile.jpg" style="height:50px" />
+                <%end%>
+              </td>
+              <td>
+                <%= best_in_place member,:mother_name_chinese %>
+              </td>
+              <td>
+                <%= member.mother_firstname %>  <%= member.mother_lastname %>
+              </td>
+              <td>
+                <%= best_in_place member,:mother_phone1 %>
+              </td>
+              <td>
+                <%= member.studentcount %>
+              </td>
+              <td>
+               
+                  <% if member.balance.to_f <= 0%>
+                    <font color="blue">$<%=member.balance%></font>
+                  <%else%>
+                    <font color="red">$<%=member.balance%></font>
+                  <%end%>
+                  <br><br>
+                  <%= link_to 'Pay', {:controller=>:members, :action=>:payment, :id=>member.id },{:class=>"cute-button-2"} %>
+             
+              </td>
+              <td>
+<% if member.payments.any? %>
+      <% member.payments.order(created_at: :desc,amount: :asc).last(1).each do |payment| %> 
+                         <%= payment.created_at.strftime("%b%d") %>
+                <%end%><%end%>
+              </td>
+              
+              
+              <td>
+                <%= link_to 'Detail', member,:class=>"cute-button-2" %>
+                <br><br>
+                <%= link_to 'Edit', edit_member_path(member),:class=>"cute-button-2" %>
+                
+                
+                
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+  <div class="footer">
+    <center>
+    <%= will_paginate @members, :class=>"pagination" %>
+  </div>

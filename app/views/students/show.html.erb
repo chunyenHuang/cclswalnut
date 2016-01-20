@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12" style="text-align:center;">
+      <b>Created by: </b> <%= @student.user_name %> @ <%= @student.created_at.strftime("%F") %>
+      <div class="space"></div>
+      <b>Updated by: </b> <%= @student.user_name %> @ <%= @student.updated_at.strftime("%F") %>
+    </div>
+    
+  </div>
+
+  <div class="row" style="padding-top:50px;">
+    <div class="col-sm-3 col-sm-offset-3">
+      <div class="img-print"><%= image_tag(@student.picture1_url, height: "300px") if @student.picture1.present?%></div> 
+    </div>
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-3" style="text-align:right;font-weight:bold;">
+          <p>姓名:
+          <p>Name: 
+          <p>Birthday:
+          <p>Phone#:
+          <p>Email:
+          <p>School(elementary):
+          <p>School(junior):
+          <p>School(high):
+          <p>Note:
+          <p>Parents:
+        </div>
+        <div class="col-sm-9">
+          <p><%= @student.name_chinese %>
+          <p><%= @student.firstname %> <%= @student.middlename %> <%= @student.lastname %>
+          <p><%= @student.birthday %>.
+          <p><%= best_in_place @student,:phone1 %>.
+             <%= best_in_place @student,:phone2 %>.
+             <%= best_in_place @student,:phone3 %>.
+          <p><%= best_in_place @student,:email1 %>.
+             <%= best_in_place @student,:email2 %>.
+          <p><%= @student.school_elementary %>.
+          <p><%= @student.school_junior %>.
+          <p><%= @student.school_high %>.
+          <p><%= best_in_place @student, :note, :type => :textarea, :as => :textarea, :ok_button => 'Save', :cancel_button => 'Cancel'  %>
+          <p>
+              <%= link_to @student.member.father_fullname, :controller => 'members', :action => 'show', :id => @student.member_id %>
+              #: <%= @student.member.father_phone1 %><br>
+             
+              <%= link_to @student.member.mother_fullname, :controller => 'members', :action => 'show', :id => @student.member_id %>
+            
+              #: <%= @student.member.mother_phone1 %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3" style="padding-top:100px;">
+                <p class="sm"><h3>Class Info</h3>
+                      <% if @student.classinfos.any? %>
+                          <% @student.classinfos.where.order(classlist_id: :asc).each do |classinfo| %>
+                            <div class="row" style="border-top:1px solid black;">
+                              <div class="col-sm-4 col-sm-offset-1">
+                                <h4><%= classinfo.fullname %>
+                              </div>
+                              <div class="col-sm-3">
+                                <h4><%= link_to "Class Detail", :controller => 'classlists', :action => 'show', :id => classinfo.classlist_id, target: '_blank'  %>
+                              </div>
+                              <div class="col-sm-3">
+                                <h4><%= link_to "Teacher Detail", :controller => 'users', :action => 'show', :id => classinfo.classlist.teacher_id, target: '_blank'  %>
+                              </div>
+                            </div>
+
+                            <%= classinfo.tuitioncount%>
+
+
+                         <% end %>
+                      <%else%>
+                         <p>Not Available
+                      <%end%>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+<div class="col-sm-12" style="text-align:center;">
+      <%= link_to '< Previous', @student.previous, :class =>"cute-button-2" %>
+      <%= link_to 'Next  >', @student.next, :class =>"cute-button-2" %>            
+      <%= link_to 'Edit', edit_student_path(@student), :class =>"cute-button-2" %>
+      <%= link_to 'Duplicate', {:controller => 'students', :action => :duplicate, :id => @student.id },{:class=>"cute-button-2"}%>
+      <%= link_to 'Delete', @student, data: { confirm: 'Are you sure?' }, method: :delete, :class =>"cute-button-2" %>
+      <%= link_to 'List', students_path, :class =>"cute-button-2" %>
+        <a href="#" onclick="window.print();return false;" class="cute-button-2">Print</a>
+    </div>
+</div>
+

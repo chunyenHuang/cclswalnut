@@ -1,0 +1,12 @@
+<div class="row">
+  <hr class="style1"><br>
+  <div class="col-sm-12">
+  <%= f.select :classlist_id, Classlist.where(:teacher_id => @user.id).map { |i| [i.classfullname, i.id ] },:prompt=>"select" %>
+  <%= f.text_field :grade %>
+  <%= f.text_field :rate %>
+  <%= f.text_field :note %>
+  </div>
+  <div class="actions">
+          <%= f.submit %>
+        </div>
+</div>

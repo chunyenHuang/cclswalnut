@@ -1,0 +1,13 @@
+<div id="wrapper" style="width:90%;margin:auto;">
+  <div id="columns">
+        <% @students.each do |student| %>
+          <div class="pin">
+                  <% if student.picture1.present? %>
+                      <%= link_to_image student.picture1_url(:thumb), student %>
+                  <% else %>
+                      <%= link_to_image student.picture2_url(:thumb), student %>
+                  <% end %>
+          </div>
+        <% end %>
+  </div>
+</div>

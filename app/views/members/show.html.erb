@@ -1,0 +1,178 @@
+<div class="container">
+  
+
+  <div class="row" style="padding-top:50px;padding-bottom:50px;border-bottom:1px solid black;">
+    <div class="col-sm-2">
+      <div class="img-print">
+        <% if @member.mother_picture.present? %>
+
+          <%= image_tag(@member.mother_picture_url, width: "100%") %>
+        <%else%>
+          <img src="/images/default_profile.jpg" style="width:100%" />
+        <%end%>
+      </div> 
+    </div>
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-3" style="text-align:right;font-weight:bold;">
+          <p>姓名:
+          <p>Name: 
+          <p>Phone#:
+          <p>Email:
+          <p>Address:
+        </div>
+        <div class="col-sm-9">
+          <p><%= @member.mother_name_chinese %>
+          <p><%= @member.mother_firstname %> <%= @member.mother_middlename %> <%= @member.mother_lastname %>
+          <p><%= best_in_place @member,:mother_phone1 %> 
+             <%= best_in_place @member,:mother_phone2 %>
+             <%= best_in_place @member,:mother_phone3 %>
+          <p><%= best_in_place @member,:mother_email1 %>
+             <%= best_in_place @member,:mother_email2 %> 
+          <p><%= @member.address1_street %>, <%= @member.address1_city %>, <%= @member.address1_state %> <%= @member.address1_zipcode %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="img-print">
+        <% if @member.father_picture.present? %>
+          <%= image_tag(@member.father_picture_url, width: "100%") %>
+        <%else%>
+          <img src="/images/default_profile.jpg" style="width:100%" />
+        <%end%>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-3" style="text-align:right;font-weight:bold;">
+          <p>姓名:
+          <p>Name: 
+          <p>Phone#:
+          <p>Email:
+          <p>Address:
+        </div>
+        <div class="col-sm-9">
+          <p><%= @member.father_name_chinese %>
+          <p><%= @member.father_firstname %> <%= @member.father_middlename %> <%= @member.father_lastname %>
+          <p><%= best_in_place @member,:father_phone1 %> 
+             <%= best_in_place @member,:father_phone2 %>
+             <%= best_in_place @member,:father_phone3 %>
+          <p><%= best_in_place @member,:father_email1 %>
+             <%= best_in_place @member,:father_email2 %> 
+          <% if @member.check_address_same == true %>
+            <p><%= @member.address1_street %>, <%= @member.address1_city %>, <%= @member.address1_state %> <%= @member.address1_zipcode %>
+          <%else%>
+           <p><%= @member.address2_street %>, <%= @member.address2_city %>, <%= @member.address2_state %> <%= @member.address2_zipcode %>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2">
+      <%= link_to 'Students', {:controller=>:members, :action=>:show, :id=>@member.id },{:class=>"cute-button"} %>
+      <%= link_to "Payments", {:controller => 'members', :action => 'show_payments', :id => @member.id},{:class=>"cute-button"} %>
+    </div>
+    <div class="col-sm-2">
+      Total Tuition: $<%=@member.tuitioncount%>
+    </div>
+    <div class="col-sm-2">
+      Paid:  $<%=@member.paid%>
+    </div>
+    <div class="col-sm-2">
+      <p>Balance: $<%=@member.balance%>
+    </div>
+    <div class="col-sm-2">
+      <%= link_to 'Pay Now', {:controller=>:members, :action=>:payment, :id=>@member.id } %>
+    </div>
+  </div>
+     
+  <% @members.students.in_groups_of(2) do |group| %>
+    <div class="row" style="padding-top:100px;"> 
+      <% group.compact.each do |student| %>
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-4">
+              <% if student.picture1.present? %>
+              <%= link_to(image_tag(student.picture1_url, :width => "100%", :border => 0), student )%>
+              <%else%>
+              <%= link_to image_tag( "/images/default_profile.jpg", :width => "100%", :border => 0), student %>
+                <!--
+                <img src="/images/default_profile.jpg" style="width:100%" />
+                !-->
+              <%end%>
+            </div>
+            <div class="col-sm-8">
+              <div class="row">
+                <div class="col-sm-3" style="text-align:right;font-weight:bold;">
+                  <p>姓名:
+                  <p>Name: 
+                  <p>Birthday:
+                  <p>Phone#:
+                  <p>Email:
+                  <p>School(elementary):
+                  <p>School(junior):
+                  <p>School(high):
+                  <p>Note:
+                </div>
+                <div class="col-sm-9">
+                  <p><%= student.name_chinese %>
+                  <p><%= student.firstname %> <%= student.middlename %> <%= student.lastname %>
+                  <p><%= student.birthday %>.
+                  <p><%= best_in_place student,:phone1 %>.
+                     <%= best_in_place student,:phone2 %>.
+                     <%= best_in_place student,:phone3 %>.
+                  <p><%= best_in_place student,:email1 %>.
+                     <%= best_in_place student,:email2 %>.
+                  <p><%= student.school_elementary %>.
+                  <p><%= student.school_junior %>.
+                  <p><%= student.school_high %>.
+                  <p><%= best_in_place student, :note, :type => :textarea, :as => :textarea, :ok_button => 'Save', :cancel_button => 'Cancel'  %>
+                </div>
+              </div>
+            </div>  
+          </div>
+          <div class="row">
+            <div class="col-sm-10">
+              <h3>Class Info</h3><%= student.tuitioncount_single %>
+                        <% if student.classinfos.any? %>
+                            <% student.classinfos.order(classlist_id: :asc).each do |classinfo| %>
+                              <div class="row" style="border-top:1px solid black;">
+                                <div class="col-sm-4 col-sm-offset-1">
+                                  <h4><%= classinfo.fullname %> $<%= classinfo.tuitioncount%>
+                                </div>
+                                <div class="col-sm-3">
+                                  <h4><%= link_to "Class Detail", :controller => 'classlists', :action => 'show', :id => classinfo.classlist_id, target: '_blank'  %>
+                                </div>
+                                <div class="col-sm-3">
+                                  <h4><%= link_to "Teacher Detail", :controller => 'users', :action => 'show', :id => classinfo.classlist.teacher_id, target: '_blank'  %>
+                                </div>
+                              </div>
+                              
+                           <% end %>
+                        <%else%>
+                           <p>Not Available
+                        <%end%>
+            </div>
+          </div>
+
+
+        </div>
+      <%end%>
+    </div>
+  <%end%>         
+</div>
+
+
+<div class="footer">
+<center>
+        <%= link_to '< Last', @member.previous, :class =>"cute-button" %>
+        <%= link_to 'Next >', @member.next, :class =>"cute-button" %>            
+        <%= link_to 'Edit', edit_member_path(@member), :class =>"cute-button" %>
+        <%= link_to 'Delete', @member, data: { confirm: 'Are you sure?' }, method: :delete, :class =>"cute-button" %>
+        <%= link_to 'List', members_path, :class =>"cute-button" %>
+        <%= link_to 'Back', :back, :class =>"cute-button" %>
+        <a href="#" onclick="window.print();return false;" class="cute-button">Print</a>
+      </center>
+</div>

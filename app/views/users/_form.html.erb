@@ -1,0 +1,77 @@
+<%= bootstrap_form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="container">    
+    <div class="row">
+      <div class="col-sm-3">
+        <h2><%= @user.name %> </h2>
+        <h2><%= @user.email %></h2>
+          <br>
+        <%= f.text_field :firstname%>
+        <%= f.text_field :lastname %>
+        <%= f.text_field :middlename %>
+        <%= f.check_box :check_teacher%>
+        <%= f.check_box :check_member %>
+        <%= f.check_box :check_staff %>
+        <%= f.text_field :position %>
+        <%= f.text_area :note, cols: "30", rows: "5" %>
+
+      </div>
+      <div class="col-sm-3">
+        <%= f.text_field :phone_mobile, :id=>"phone"  %>
+        <%= f.text_field :phone_home, :id=>"phone2"  %>
+        <%= f.text_field :phone_work, :id=>"phone3"  %>
+        <%= f.text_field :address_street %>
+        <%= f.text_field :address_city %>
+        <%= f.text_field :address_state %>
+        <%= f.text_field :address_zipcode %>
+      </div>
+      <div class="col-sm-3">
+        <%= f.file_field :pic1 %><br>
+        <%= image_tag(@user.pic1_url(:thumb) ,height: "120px") if @user.pic1.present? %>
+        <%= f.file_field :pic2 %><br>
+        <%= image_tag(@user.pic2_url(:thumb) ,height: "120px") if @user.pic2.present? %>
+        <%= f.file_field :pic3 %><br>
+        <%= image_tag(@user.pic3_url(:thumb) ,height: "120px") if @user.pic3.present? %>
+      </div>
+      <div class="col-sm-3">
+        <%= f.text_field :contact1_name %>
+        <%= f.text_field :contact1_phone, :id=>"phone4"  %>
+        <%= f.text_field :contact1_relationship %>
+        <%= f.text_field :contact2_name %>
+        <%= f.text_field :contact2_phone, :id=>"phone5"  %>
+        <%= f.text_field :contact2_relationship %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12" style="text-align:center;">
+        <div class="actions">
+          <%= f.submit "Update" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="container">
+
+   <p><b>Evalutation</b>
+              <%= f.fields_for :teacherdocuments do |builder| %>
+              <%= render "teacherdocuments_fields", :f => builder %>
+              <% end %>
+
+            </div>
+
+
+
+
+<% end %>

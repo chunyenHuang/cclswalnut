@@ -1,0 +1,97 @@
+<div class="container" style="background-color:transparent;">
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr class="head">
+            <th style="width:10%;">
+              <b>Picture
+            </th>
+            <th style="width:8%;">
+              <b><%= sortable "name", "姓名" %>
+            </th>
+            <th style="width:8%;">
+              <b><%= sortable "firstname", "Firstname" %>
+            </th>
+            <th style="width:8%;">
+              <b><%= sortable "lastname", "Lastname" %>
+            </th>
+            <th>
+              <b><%= sortable "phone1", "Phone#" %>
+            </th>
+            <th>
+              <b><%= sortable "email", "Email" %>
+            </th>
+            <th style="width:12%;">
+              <b><%= sortable "identity", "Identity" %>
+            </th>
+            <th style="width:12%;">
+              <b><%= sortable "position", "Position" %>
+            </th>
+            <th style="width:3%;">
+              <b><%= sortable "id", "ID" %>
+            </th>
+            <th style="width:5%;">
+              <b><%= sortable "Roles", "Roles" %>
+            </th>
+            <th class="noprint" style="width:8%;">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td>
+                <% if user.pic1.present?%>
+                  <%= link_to(image_tag(user.pic1_url(:thumb), :height => "75", :border => 0), user )%>
+                <%end%>
+              </td>
+              <td>
+                <%= user.name %>
+              </td>
+
+              <td>
+                <%= user.firstname %>
+              </td>
+              <td>
+                <%= user.lastname %>
+              </td>
+              <td>
+                <%= user.phone_mobile %>
+              </td>
+              <td>
+                <%= user.email %>
+              </td>
+              <td>
+                <%= user.identity %>
+              </td>
+              <td>
+                <% if user.position.present? %>
+                  <%= user.position %>
+                <%else%>
+                   <% user.classlists.in_groups_of(3) do |group| %>
+                    <% group.compact.each do |classlist| %>
+                      <%= classlist.year%> <%= classlist.class_name%>
+                    <%end%>
+                  <%end%>
+                <%end%>
+              </td>
+              <td>
+                <%= user.id %>
+              </td>
+              <td>
+                <%= user.roles.first.name %>
+              </td>
+              <td>
+                <%= link_to 'Detail', user %> | 
+                <%= link_to 'Edit', :controller => 'users', :action => 'editbyadmin', :id => user.id %>
+                
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

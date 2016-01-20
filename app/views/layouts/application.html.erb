@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= csrf_meta_tags %>
+  <title>孔孟中文學校 Confucius Chinese Language School</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application','data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <link rel="stylesheet" type="text/css" media="print" href="print.css"/>
+  <script src="jquery.js" type="text/javascript"></script>
+  <script src="jquery.maskedinput.js" type="text/javascript"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+     <a class="navbar-brand" href="#">
+      <!--
+      <img src="/images/cssm-logo1.jpg" style="width:30px" />
+      !-->孔孟中文學校</a>
+
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-left">  
+            <% if user_signed_in? %>
+              <% if current_user.has_role? :admin %>
+                <li><a href="/members/new_family">+ New Family +</a></li>
+                <li><a href="/students/">Students</a></li>
+                <li><a href="/members/">Family</a></li>
+                <li><a href="/users/">Teachers</a></li>
+                <li><a href="/classlists/">Classes</a></li>
+                <li><div class="space"></div></li>
+                  <li><p><%= form_tag students_path, :method => 'get' do %>
+                        <%= text_field_tag :search, params[:search], :placeholder => "Students...",:size=>10, :class=> "black" %>
+                      <%end%>
+                  </li>
+              <%end%>
+              <% if current_user.has_role? :teacher %>
+                <li><%= link_to 'Current Class', :controller => 'classlists', :action => 'show', :id => Classlist.where(:teacher_id => current_user.id).last(1) %></li>
+                <li><%= link_to 'All Classes', :controller => 'users', :action => 'show', :id => User.where(:id => current_user.id).pluck(:id) %></li>
+              <%end%>
+
+              <%end%>
+                
+            <!--    
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/students/">Student Lists</a></li>
+                <li class="divider"></li> 
+                <li><a href="/members/">Member Lists</a></li>
+                <li class="divider"></li>      
+                <li><a href="/users/">User Lists</a></li>
+                <li class="divider"></li>      
+                <li><a href="/classlists/">Class Lists</a></li>
+              </ul>
+            </li>
+
+            !-->
+                
+                
+      
+
+          </ul>
+              <p class="navbar-text pull-right"> 
+              <% if user_signed_in? %><strong><%= current_user.name %></strong> | 
+              <!--
+                <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+                !-->
+               
+                <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+              <% else %>
+                <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+                <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+              <% end %>
+              </p>
+
+    </div></div>
+  </div>
+</nav>
+<div class="mainbox">
+
+<% if notice %>
+  <p class="alert alert-success"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p class="alert alert-danger"><%= alert %></p>
+<% end %>
+
+<%= yield %>
+</div>
+<!--
+<footer>
+  <div class="container">
+    Michael John Jewelry 2015
+  </div>
+</footer>
+!-->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+
+</body>
+</html>

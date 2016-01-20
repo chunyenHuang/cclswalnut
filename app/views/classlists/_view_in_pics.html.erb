@@ -1,0 +1,76 @@
+
+<% @students.in_groups_of(6) do |group| %>
+  <div class="row">
+    <% group.compact.each do |student| %>
+
+        <div class="col-md-2">
+          <div class="con-frame">
+          <div class="frame">          
+              <center>
+
+              <div class="textbox">
+              <h5>
+                    <b><%= link_to orderlist.customer.customer_company + " "+ orderlist.ordernumber, orderlist %> </b>
+
+
+                    <%if distance_of_time_custom(Time.now, orderlist.deadline) != " " %>
+                    | <%= distance_of_time_custom(Time.now, orderlist.deadline) %>
+                    <%end%>
+
+              <h5><%= orderlist.category %> x <%= orderlist.quantity %>
+              <h5><%= orderlist.gold %><%if orderlist.size.present? %> | Size: <%= orderlist.size %><%end%>
+              </h5>
+              <h5>
+                <% if orderlist.center_carat.present? %>
+                  Center: <%= orderlist.center_carat %> ct | <%= orderlist.center_description %>
+                <%end%>
+              </h5>
+              <h5>
+                    <%= best_in_place orderlist, :description, :type => :textarea,  :ok_button => 'Save', :cancel_button => 'Cancel'  %>
+              </h5>
+              </div>
+
+            <div class="imgborder">
+              <div class="fade">
+                <% if orderlist.picture.present? %>
+                    <%= link_to_image orderlist.picture_url(:thumb), orderlist %>
+                <% elsif orderlist.picture2.present? %>
+                    <%= link_to_image orderlist.picture2_url(:thumb), orderlist %>
+                <% elsif orderlist.picture3.present? %>
+                    <%= link_to_image orderlist.picture3_url(:thumb), orderlist %>
+                <% elsif orderlist.picture4.present? %>
+                    <%= link_to_image orderlist.picture4_url(:thumb), orderlist %>
+                <% elsif orderlist.picture5.present? %>
+                    <%= link_to_image orderlist.picture5_url(:thumb), orderlist %>
+                <% elsif orderlist.picture6.present? %>
+                    <%= link_to_image orderlist.picture6_url(:thumb), orderlist %>
+                <% elsif orderlist.picture7.present? %>
+                    <%= link_to_image orderlist.picture7_url(:thumb), orderlist %>
+                <% else %>
+                    <%= link_to_image orderlist.picture8_url(:thumb), orderlist %>
+                <% end %>
+              </div>
+              <h5><b>item#:</b> <%= best_in_place orderlist, :itemnumber %>
+              <h5><b>invoice#:</b>
+                          <% if orderlist.invoicenumber=="Michael Hand written invoice" %>
+                            <font size="2px">Michael Written</font>
+                          <% elsif %>
+                            <%= best_in_place orderlist, :invoicenumber %>
+                          <%end %></h5>
+
+              <hr class="style1">
+              <h5><%= link_to orderlist.customer.customer_firstname + " " + orderlist.customer.customer_lastname, :controller => 'customers', :action => 'show', :id => orderlist.customer_id %>
+              <% if orderlist.customer.customer_company.present? %>
+               <%= link_to "@ "+orderlist.customer.customer_company, :controller => 'customers', :action => 'showcompany', search: orderlist.customer.customer_company %>
+                <%end%>
+              </h5>
+
+
+              <h5><%= link_to orderlist.customer.customer_number, :controller => 'customers', :action => 'show', :id => orderlist.customer_id %></h5>
+            </div>
+          </div>
+         </div>       
+      </div>
+    <% end %>
+  </div>
+<% end %>

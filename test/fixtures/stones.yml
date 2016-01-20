@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  report: MyString
+  orderlist_id: 1
+  shape: MyString
+  size: 1.5
+  amount: 1
+
+two:
+  report: MyString
+  orderlist_id: 1
+  shape: MyString
+  size: 1.5
+  amount: 1

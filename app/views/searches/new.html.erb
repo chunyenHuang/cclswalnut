@@ -1,0 +1,96 @@
+
+<div class="container">
+
+<h1>Welcom to Search+ </h1>
+
+<%= form_for @search, html: {class: "pure-form"} do |s| %>
+<div class="row">
+		  <div class="col-md-4">
+			<div class="field">
+				<%= s.label :What_do_you_remember? %><br>
+				<%= s.text_field :keywords %>
+			</div>
+			<div class="field">
+				<%= s.label :category %><br>
+				<%= s.select :category, grouped_options_for_select={
+		                    "men's" => [["men's band","men's band"],["men's ring","men's ring"]],
+		                    'band' => [['solitaire-band','band-solitaire'],['halfway-band','band-halfway'],['75%-band','band-75%'],['eternity-band','band-eternity'],['other-band','band-other']],
+		                    'setting' =>[['solitaire-setting','setting-solitaire'],['halfway-setting','setting-halfway'],['75%-setting','setting-75%'],['eternity-setting','setting-eternity'],['other-setting','setting-other']],
+		                    'set&band' =>[['solitaire-set&band','set&band-solitaire'],['halfway-set&band','set&band-halfway'],['75%-set&band','set&band-75%'],['eternity-set&band','set&band-eternity'],['other-set&band','set&band-other']],
+		                    'ring' => [['ring','ring']],
+		                    'bangle' => [['slidein','bangle-slidein'],['lock','bangle-lock']],
+		                    'bracelet' => [['bracelet']],
+		                    'earrings' => [['drop','earrings-drop'],['stud','earrings-stud'],['hoop','earrings-hoop']],
+		                    'pendant' => [['pendant']],
+		                    'necklace' => [['Tennis','necklace-tennis'],['Bib','necklace-Bib'],['choker','necklace-choker'],['chain','necklace-chain']],
+		                    'cufflink' => [['folded','cufflink-folded'],['solid','cufflink-solid']],
+		                    'others'=> [['others'],['parts','others-parts'],['locks','others-locks']]
+		                  } , {:prompt => " "}, {multiple: false, size: 25}
+		        %>
+			</div>
+		</div>
+  
+	<div class="col-md-4">
+
+
+		<div class="field">
+			<%= s.label :center_carat %><br>
+	        <%= s.text_field :center_carat, :size => 3 %> ct (+/- 0.3ct)
+		</div>
+          <div class="field">
+          <%= s.label :caddesigners %><br>
+          <%= s.select :caddesigners, User.where(CAD: "1").map { |i| [i.name, i.name ] }, {:prompt => " "}, {multiple: false, size: 8} %>
+          </div>
+          <div class="field">
+          <%= s.label :setters %><br>
+          <%= s.select :setters, User.where(Setter: "1").map { |i| [i.name, i.name ] }, {:prompt => " "}, {multiple: false, size: 8} %>
+          </div>
+
+		<div class="field">
+			<%= s.label :from_date, "From" %><br><%= s.date_select :from_date%><br>
+			<%= s.label :to_date, "To" %><br><%= s.date_select :to_date %>
+		</div>
+
+	      
+
+		<div class="field">
+			<%= s.label :ordernumber %><BR>
+			<%= s.text_field :ordernumber %>
+		</div>
+
+		<div class="field">
+			<%= s.label :itemnumber %><BR>
+			<%= s.text_field :itemnumber %>
+		</div>
+
+		<div class="field">
+			<%= s.label :invoicenumber %><BR>
+			<%= s.text_field :invoicenumber %>
+		</div>
+
+
+	<div class="action">
+		<center><%= s.submit "Search", class: "pure-button pure-buttom-primary" %>
+	</div>
+
+
+		</div>
+	<div class="col-md-4">
+
+		<div class="field">
+        <%= s.label :customer_info %><br>
+        <%= s.select(:customer_id, options_from_collection_for_select(@customer_select, :id, :customer_fullname, @T), {:prompt => " "}, {multiple: false, size: 30} )%>
+      </div>
+
+	</div>
+
+
+</div>
+
+<%end%>
+
+
+
+
+
+</div>

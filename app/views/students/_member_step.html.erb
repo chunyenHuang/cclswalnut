@@ -1,0 +1,20 @@
+
+<div class="container">
+	<div class="row"s>
+     	<div class="col-sm-2 col-sm-offset-3" style="text-align:center">
+        <div class="field">
+          <%= f.label :father %><br>
+          <%= f.select(:member_id, options_from_collection_for_select(Member.order(father_firstname: :asc), :id, :father_firstname, @T), {:prompt => @prompt}, {multiple: false, size: 30} )%>
+        </div>
+      </div>
+      <div class="col-sm-2" style="text-align:center">
+        <div class="field">
+          <%= f.label :mother %><br>
+          <%= f.select(:member_id, options_from_collection_for_select(Member.order(mother_firstname: :asc), :id, :mother_firstname, @T), {:prompt => @prompt}, {multiple: false, size: 30} )%>
+        </div>
+     	</div>
+      <div class="col-sm-2" style="text-align:center">
+        <%= link_to '+ Create a New Member +', new_member_path %>
+      </div>
+</div>
+

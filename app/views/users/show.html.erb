@@ -1,0 +1,145 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12" style="text-align:center;">
+      <%= link_to '< Last', @user.previous, :class =>"cute-button" %>
+      <%= link_to 'Next >', @user.next, :class =>"cute-button" %>
+      <%= link_to 'Edit', {:controller => 'users', :action => 'editbyadmin', :id => @user.id}, :class =>"cute-button"  %>
+      <%= link_to 'Delete', @user, data: { confirm: 'Are you sure?' }, method: :delete, :class =>"cute-button" %>
+      <%= link_to 'List', users_path, :class =>"cute-button" %>
+        <a href="#" onclick="window.print();return false;" class="cute-button">Print</a>
+    </div>
+  </div>
+
+  <div class="row" style="padding-top:50px;">
+    <div class="col-sm-2">
+      <% if @user.pic1.present? %>
+        <%= image_tag(@user.pic1_url(:thumb), :width => "100%", :border => 0)%>
+      <%else%>
+        <img src="/images/default_profile.jpg" style="width:100%" />
+      <%end%>
+    </div>
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-3" style="text-align:right;font-weight:bold;">
+          <p>姓名:
+          <p>Name: 
+          <p>Phone#:
+          <p>Email:
+          <p>Address:
+          <p>Contact1:
+          <% if @user.contact2_name.present? %>
+            <p>Contact2:  
+          <%end%>
+        </div>
+        <div class="col-sm-9">
+          <p><%= @user.name %>
+          <p><%= @user.firstname %> <%= @user.middlename %> <%= @user.lastname %>
+          <p><%= best_in_place @user,:phone_mobile %> 
+             <%= best_in_place @user,:phone_home %>
+             <%= best_in_place @user,:phone_work %>
+          <p><%= @user.email %>
+          <p><%= @user.address_street %>, <%= @user.address_city %>, <%= @user.address_state %> <%= @user.address_zipcode %>
+          <p><%= @user.contact1_name %> (<%=@user.contact1_relationship%>) <%= @user.contact1_phone%>
+          <% if @user.contact2_name.present? %>
+            <p><%= @user.contact2_name %> (<%=@user.contact2_relationship%>) - <%= @user.contact2_phone%>
+          <%end%>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="col-sm-12" style="padding-bottom:15px;border-bottom:1px solid black;">
+        <%= link_to 'Upload', {:controller=>'users',:action=>'uploaddocument',:id=>@user.id}, :class =>"cute-button-2" %>
+      </div>
+      <% if @user.teacherdocuments.any? %>
+        <% Teacherdocument.where(:user_id=>@user.id).each do |document| %>
+          <%= link_to document.title, "#{document.file}", :target => "_blank"  %>
+        <%end%>
+      <%else%>
+        <p>no file available
+      <%end%>
+
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <% if current_user.has_role? :admin %>
+    <div class="row">
+      <div class="col-sm-12">
+       <%= link_to 'Evaluation', {:controller => :users, :action=>:evaluation, :id=>@user.id}, :class =>"cute-button" %>
+      </div>
+    </div>
+
+    <% if @user.evaluationteachers.any? %>
+      <% Evaluationteacher.where(:user_id=>@user.id).order(classlist_id: :asc).each do |evaluation| %>
+        <div class="row" style="border-bottom:1px solid gray">
+          <div class="col-sm-3 col-sm-offset-2" style="text-align:left">
+            <% Classlist.where(:id => evaluation.classlist_id).each do |classlist| %>
+              <%=classlist.year%>
+              <%=classlist.class_name%>
+            <%end%>
+          </div>
+          <div class="col-sm-2">
+            <%= evaluation.grade %>/100
+          </div>
+          <div class="col-sm-2">
+            $<%= evaluation.rate %>/hr
+          </div>
+          <div class="col-sm-3">
+          <%= evaluation.note %>
+          </div>
+        </div>
+      <%end%>
+    <%else%>
+      <p> No Evaluation Available
+    <%end%>
+
+    <br><br>
+    <hr style="style1">
+  <%end%>
+
+    <p> Current Classes </p>
+
+    <% Classlist.where(:active=>true).where(:teacher_id => @user.id).order(id: :asc).each do |classlist| %>
+        <div class="row">
+          <div class="col-sm-12" style="background-color:black;color:white;text-align:center;">
+            <%=link_to "#{classlist.year} #{classlist.class_name}", classlist, :style=>"color:white" %>
+          </div>  
+          <% classlist.students.in_groups_of(12) do |group| %>
+            <% group.compact.each do |student| %>
+              <div class="col-sm-1" style="padding-top:10px;text-align:center;">
+                <%=student.name_chinese%><br>
+                <%=student.firstname%> <%=student.lastname%><br>
+                <%= link_to(image_tag(student.picture1_url(:thumb), :width => "100%", :border => 0), student )%>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+    <%end%>
+
+
+
+    <br><br>
+    <p> Past Classes </p>
+
+    <% Classlist.where(:active=>false).where(:teacher_id => @user.id).order(id: :asc).each do |classlist| %>
+        <div class="row" style="padding-top:200px;">
+          <div class="col-sm-12" style="background-color:black;color:white;text-align:center;">
+            <%=link_to "#{classlist.year} #{classlist.class_name}", classlist, :style=>"color:white" %>
+          </div>   
+          <% classlist.students.in_groups_of(12) do |group| %>
+            <% group.compact.each do |student| %>
+              <div class="col-sm-1" style="padding-top:10px;text-align:center;">
+                <%=student.name_chinese%><br>
+                <%=student.firstname%> <%=student.lastname%><br>
+                <%= link_to(image_tag(student.picture1_url(:thumb), :width => "100%", :border => 0), student )%>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <%end%>
+
+
+
+</div>

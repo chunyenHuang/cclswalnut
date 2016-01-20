@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  keywords: MyString
+  category: 
+  deadline: 9.99
+  itemnumber: 1
+
+two:
+  keywords: MyString
+  category: 
+  deadline: 9.99
+  itemnumber: 1

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  invoicenumber: MyString
+  Y18: 1.5
+
+two:
+  invoicenumber: MyString
+  Y18: 1.5

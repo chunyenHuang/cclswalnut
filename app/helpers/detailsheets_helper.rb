@@ -1,0 +1,2 @@
+module DetailsheetsHelper
+end

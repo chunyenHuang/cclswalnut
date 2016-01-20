@@ -1,0 +1,138 @@
+<div class="container">
+  
+  <div class="row">
+    <div class="col-sm-12" style="text-align:left;">
+      <h2><%= @classlist.year %>
+          <%= @classlist.class_name %>
+          (<%= @classlist.kind %>)$<%= @classlist.tuition %>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-2" style="text-align:left;">
+      <p><%= link_to @classlist.user.name, @classlist.user  %>
+    <% if @classlist.user.pic1.present? %>
+        <%= link_to(image_tag(@classlist.user.pic1_url(:thumb), :width => "100%", :border => 0), @classlist.user )%>
+      <%else%>
+        <img src="/images/default_profile.jpg" style="width:100%" />
+      <%end%>
+    </div>
+    <div class="col-sm-8 col-sm-offset-2" style="text-align:left;">
+      <div class="col-sm-12" style="padding-bottom:15px;border-bottom:1px solid black;">
+        <%= link_to 'Upload', {:controller=>'classlists',:action=>'uploaddocument',:id=>@classlist.id}, :class =>"cute-button-2" %>
+      </div>
+      <% if @classlist.classdocuments.any? %>
+        <% @classlist.classdocuments.order(title: :asc).each do|classdocument| %>
+          <div class="col-sm-2" style="padding:10px">
+            <%= link_to classdocument.title, "#{classdocument.document}", :target => "_blank"  %>
+          </div>
+        <%end%>
+      <%else%>
+        <div class="col-sm-4">
+          <p>No Class Documents
+        </div>
+      <%end%>
+    </div>
+  </div>
+  <div clas="row">
+    <table class="table">
+      <thead>
+        <tr class="head"> 
+          <td>
+            姓名
+          </td>
+          <td>
+            Name
+          </td>
+          <td>
+            Picture
+          </td>
+          <td>
+            Quiz1
+          </td>
+          <td>
+            Quiz2
+          </td>
+          <td>
+            Quiz3
+          </td>
+          <td>
+            Quiz4
+          </td>
+          <td>
+            Quiz5
+          </td>
+          <td>
+            Midterm
+          </td>
+          <td>
+            Final
+          </td>
+        </tr>
+      </thead>
+    <tbody>
+      <% @classlists.students.in_groups_of(1) do |group| %>
+        <% group.compact.each do |student| %>
+            <tr>
+              <td>
+                <%= student.name_chinese %>
+              </td>
+              <td>
+                <%= student.firstname %> <%= student.lastname %>
+              </td>
+              <td>
+                <%= link_to(image_tag(student.picture1_url(:thumb), :height => "100", :border => 0), student )%>
+              </td>
+              
+              <% student.classinfos.where(:classlist_id => @classlist.id).each do |classinfo| %>
+                <td>
+                  <%= classinfo.quiz1 %>
+                </td>
+                <td>
+                  <%= classinfo.quiz2 %>
+                </td>
+                <td>
+                  <%= classinfo.quiz3 %>
+                </td>
+                <td>
+                  <%= classinfo.quiz4 %>
+                </td>
+                <td>
+                  <%= classinfo.quiz5 %>
+                </td>
+                <td>
+                  <%= classinfo.midterm %>
+                </td>
+                <td>
+                  <%= classinfo.final %>
+                </td>
+                <td>
+                  <% if @classlist.active == true %>
+                    <%= link_to 'Transcript', { :controller => 'students', :action => 'edit_transcript', :id => classinfo.student_id, :classinfo_id => classinfo.id}, :class=>"cute-button-2" %>
+                  <%else%>
+                    
+                  <%end%>
+                </td>
+
+              <%end%>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+<div class="row">
+    <div class="col-sm-12" style="text-align:center;">
+      <%= link_to '< Previous', @classlist.previous, :class =>"cute-button-2" %>
+      <%= link_to 'Next >', @classlist.next, :class =>"cute-button-2" %>
+      
+      <%= link_to 'Edit', edit_classlist_path(@classlist), :class =>"cute-button-2" %>
+      <%= link_to 'Delete', @classlist, data: { confirm: 'Are you sure?' }, method: :delete, :class =>"cute-button-2" %>
+      <%= link_to 'List', classlists_path, :class =>"cute-button-2" %>
+        <a href="#" onclick="window.print();return false;" class="cute-button-2">Print</a>
+    </div>
+  </div>
+</div>
