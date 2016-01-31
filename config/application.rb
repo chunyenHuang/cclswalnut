@@ -1,6 +1,6 @@
 require File.expand_path('../boot', __FILE__)
 require 'rails/all'
-require 'pdfkit'
+#require 'pdfkit'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -17,7 +17,7 @@ module FactoryStatusApp
     #rake time:zones:all OFFSET=-8
     config.time_zone = 'Pacific Time (US & Canada)'
     #config.wkhtmltopdf = ('which wkhtmltopdf').chomp
-    config.middleware.use "PDFKit::Middleware", :print_media_type => true
+    #config.middleware.use "PDFKit::Middleware", :print_media_type => true
     config.serve_static_assets = true
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
