@@ -17,7 +17,9 @@ class MembersController < ApplicationController
 
   def index
     session[:return_to] = request.referer
-    @members = Member.all.order(sort_column + " " + sort_direction).paginate(page: params[:page], per_page: 20).search(params[:search])
+    @members = Member.all.order(sort_column + " " + sort_direction)
+                         .paginate(page: params[:page], per_page: 20)
+                         #.search(params[:search])
   end
 
   def show
