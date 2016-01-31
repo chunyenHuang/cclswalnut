@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+# rake db:setup
+Role.create(name: 'admin')
+Role.create(name: 'manager')
+Role.create(name: 'teacher')
+Role.create(name: 'member')
+Role.create(name: 'viewer')

@@ -41,7 +41,7 @@ class Ability
       can :new_family, :all
       can :update, Member
       can :create, Student
-      #can :index, :all
+      #can :manage, :all
       #can :search, :all if user.has_role? :manager
       #can :duplicate, :all if user.has_role? :manager
 

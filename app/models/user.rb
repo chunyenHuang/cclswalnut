@@ -85,4 +85,15 @@ class User < ActiveRecord::Base
   #  self.roles << Role.where(:name => 'viewer').first
   #end
 
+  after_create :set_admin
+
+  private
+  def set_admin
+   if  User.count == 1
+    self.roles << Role.where(:name => 'admin').first
+   else
+    self.roles << Role.where(:name => 'viewer').first
+   end
+  end
+
 end
