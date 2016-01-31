@@ -78,11 +78,11 @@ class User < ActiveRecord::Base
         end
   end
 
-  after_create :default_role
+  #after_create :default_role
 
-  private
-  def default_role
-    self.roles << Role.where(:name => 'viewer').first
-  end
+  #private
+  #def default_role
+  #  self.roles << Role.where(:name => 'viewer').first
+  #end
 
 end
