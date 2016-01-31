@@ -3,7 +3,7 @@ class CreateCastinglogs < ActiveRecord::Migration
     create_table :castinglogs do |t|
       t.string :weight_today
       t.string :weight_lasttime
-
+      t.string :test
       t.timestamps
     end
   end
