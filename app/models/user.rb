@@ -89,11 +89,12 @@ class User < ActiveRecord::Base
 
   private
   def set_admin
-   if  User.count == 1
+   if  self.id == 1
     self.roles << Role.where(:name => 'admin').first
    else
     self.roles << Role.where(:name => 'viewer').first
    end
   end
+
 
 end

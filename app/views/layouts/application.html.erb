@@ -50,6 +50,9 @@
                 <li><%= link_to 'Current Class', :controller => 'classlists', :action => 'show', :id => Classlist.where(:teacher_id => current_user.id).last(1) %></li>
                 <li><%= link_to 'All Classes', :controller => 'users', :action => 'show', :id => User.where(:id => current_user.id).pluck(:id) %></li>
               <%end%>
+              <% if current_user.has_role? :viewer %>
+                <li><a href="/members/new_family">+ Apply Now +</a></li>
+              <%end%>
 
               <%end%>
                 
