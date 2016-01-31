@@ -116,6 +116,7 @@ GEM
     prawn (2.0.2)
       pdf-core (~> 0.6.0)
       ttfunk (~> 1.4.0)
+    puma (2.15.3)
     rack (1.5.5)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -217,6 +218,7 @@ DEPENDENCIES
   pdfkit
   pg
   prawn
+  puma
   rails (= 4.1.8)
   rails4-autocomplete
   rails_12factor
