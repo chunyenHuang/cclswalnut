@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12" style="text-align:center;">
-      <%= link_to '< Last', @user.previous, :class =>"cute-button" %>
-      <%= link_to 'Next >', @user.next, :class =>"cute-button" %>
-      <%= link_to 'Edit', {:controller => 'users', :action => 'editbyadmin', :id => @user.id}, :class =>"cute-button"  %>
-      <%= link_to 'Delete', @user, data: { confirm: 'Are you sure?' }, method: :delete, :class =>"cute-button" %>
-      <%= link_to 'List', users_path, :class =>"cute-button" %>
-        <a href="#" onclick="window.print();return false;" class="cute-button">Print</a>
+      <%= link_to '< Last', @user.previous, :class =>"btn btn-primary"%>
+      <%= link_to 'Next >', @user.next, :class =>"btn btn-primary" %>
+      <%= link_to 'Edit', {:controller => 'users', :action => 'editbyadmin', :id => @user.id}, :class =>"btn btn-primary"  %>
+      <%= link_to 'Delete', @user, data: { confirm: 'Are you sure?' }, method: :delete, :class =>"btn btn-primary" %>
+      <%= link_to 'List', users_path, :class =>"btn btn-primary" %>
+        <a href="#" onclick="window.print();return false;" class="btn btn-primary">Print</a>
     </div>
   </div>
 

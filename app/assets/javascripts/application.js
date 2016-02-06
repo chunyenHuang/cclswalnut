@@ -23,6 +23,7 @@
 //= require rest_in_place
 //= require best_in_place
 //= require bootstrap
+//= require bootstrap_sb_admin_base_v2
 //= require bootstrap.min
 //= require bootstrap-datepicker
 //= require bootstrap.file-input.js

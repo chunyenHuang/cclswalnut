@@ -97,4 +97,6 @@ gem 'bootstrap_form'
 gem "nested_form"
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
+gem 'bootstrap_sb_admin_base_v2', '~> 0.1.0'
+
 ruby '2.2.3'
