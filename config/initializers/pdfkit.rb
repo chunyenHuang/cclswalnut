@@ -1,3 +1,4 @@
+=begin
 PDFKit.configure do |config|
   config.wkhtmltopdf = 'C:\wkhtmltopdf\bin\wkhtmltopdf.exe'
   config.default_options = {
@@ -8,3 +9,4 @@ PDFKit.configure do |config|
   config.root_url = "http://localhost"
   config.verbose = false
 end
+=end
