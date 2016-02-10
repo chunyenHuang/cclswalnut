@@ -99,6 +99,6 @@ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootst
 
 gem 'bootstrap_sb_admin_base_v2', '~> 0.1.0'
 
-#gem 'asset_sync'
+gem 'aws-sdk', '~> 2'
 
 ruby '2.2.3'
