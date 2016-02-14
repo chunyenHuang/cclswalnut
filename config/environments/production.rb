@@ -21,7 +21,7 @@ Rails.application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
   # original is false
-  config.serve_static_assets = true
+  config.serve_static_assets = false
 
   config.assets.compress = true
 
