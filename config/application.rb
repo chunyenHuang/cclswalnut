@@ -25,15 +25,5 @@ module FactoryStatusApp
    
     # original= true
     config.assets.enabled = true
-
-    #Needs to be false on Heroku
-    config.assets.initialize_on_precompile = false
-    # Can be set to invalidate the whole cache
-    config.assets.version = "1.1"
-
-    # Serving static assets and setting cache headers 
-    # which will be used by cloudfront as well
-    config.serve_static_assets = true
-    config.static_cache_control = "public, max-age=31536000"
   end
 end

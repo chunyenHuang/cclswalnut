@@ -32,7 +32,7 @@ Rails.application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   # was false
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs.
   config.assets.digest = true
@@ -59,7 +59,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = "ENV[cclswalnut-assets.s3.amazonaws.com]"
+  # config.action_controller.asset_host = "ENV[cclswalnut-assets.s3.amazonaws.com]"
   #c onfig.asset_host = "https://cclswalnut-assets.s3.amazonaws.com"
   # config.action_controller.asset_host = "//s3.amazonaws.com/#{ENV['FOG_DIRECTORY']}"
   # config.assets.prefix = "/school-system-asset"
