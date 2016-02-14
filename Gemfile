@@ -15,7 +15,7 @@ group :production do
 	gem 'rails_12factor'
 end
 
-gem 'therubyracer'
+# gem 'therubyracer'
 
 gem 'carrierwave'
 #gem 'mini_magick'

@@ -5,7 +5,8 @@
 /**
 Form with single input element, two buttons and two states: normal/loading.
 Applied as jQuery method to DIV tag (not to form tag!). This is because form can be in loading state when spinner shown.
-Editableform is linked with one of input types, e.g. 'text', 'select' etc.
+Editableform is linked<script>
+ with one of input types, e.g. 'text', 'select' etc.
 
 @class editableform
 @uses text
