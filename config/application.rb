@@ -24,7 +24,7 @@ module FactoryStatusApp
     # config.i18n.default_locale = :de
    
     # original= true
-    config.assets.enabled = false
+    config.assets.enabled = true
 
     #Needs to be false on Heroku
     config.assets.initialize_on_precompile = false
