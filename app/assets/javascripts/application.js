@@ -22,6 +22,7 @@
 //= require autocomplete-rails
 //= require rest_in_place
 //= require best_in_place
+//= require bootstrap-sprockets
 //= require bootstrap
 //= require bootstrap_sb_admin_base_v2
 //= require bootstrap.min

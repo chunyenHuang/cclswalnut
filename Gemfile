@@ -21,6 +21,7 @@ gem 'carrierwave'
 #gem 'mini_magick'
 
 # Use SCSS for stylesheets
+gem 'sass'
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -95,6 +96,7 @@ gem 'bootstrap-datepicker-rails'
 gem "font-awesome-rails"
 
 #form style
+gem 'bootstrap-sass'
 gem 'bootstrap_form'
 gem "nested_form"
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'

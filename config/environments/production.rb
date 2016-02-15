@@ -22,7 +22,7 @@ Rails.application.configure do
   # Disable Rails's static asset server (Apache or nginx will already do this).
   # original is false
   config.serve_static_assets = true
-  # config.assets.compress = true
+  config.assets.compress = true
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -57,7 +57,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = "dk495888l7nrt.cloudfront.net"  
+  # config.action_controller.asset_host = "dk495888l7nrt.cloudfront.net"  
   #c onfig.asset_host = "https://cclswalnut-assets.s3.amazonaws.com"
   # config.action_controller.asset_host = "//s3.amazonaws.com/#{ENV['FOG_DIRECTORY']}"
   # config.assets.prefix = "/school-system-asset"
