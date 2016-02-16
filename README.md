@@ -1,4 +1,4 @@
-Chinese School System
+Chinese School System (cclswalnut)
 ----------------
 based on Ruby on Rails
 
