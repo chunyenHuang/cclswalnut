@@ -28,7 +28,6 @@
 //= require bootstrap.min
 //= require bootstrap-datepicker
 //= require bootstrap.file-input.js
-//= require dropdown
 //= require turbolinks
 //= require_tree .
 

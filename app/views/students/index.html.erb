@@ -1,1 +1,76 @@
-<%= render 'view_in_table' %>
+<div class="panel-body">
+  <div class="dataTable_wrapper">
+    <table class="table table-striped table-bordered table-hover" id="dataTables-students">
+      <thead>
+        <tr>
+				  <th>Picture</th>
+					<th><%= sortable "name_chinese", "姓名" %></th>
+					<th><%= sortable "firstname", "Firstname" %></th>
+					<th><%= sortable "lastname", "Lastname" %></th>
+          <th><%= sortable "phone1", "Phone#" %></th>
+					<th><%= sortable "class", "current class" %></th>
+					<th><%= sortable "member_id", "Parents" %></th>
+					<th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @students.each do |student| %>
+          <tr>
+            <td>
+              <% if student.picture1.present? %>
+                <%= link_to(image_tag(student.picture1_url(:thumb), :height => "75", :border => 0), student )%>
+              <%else%>
+                <img src="/images/default_profile.jpg" style="height:100px" />
+              <% end %>
+            </td>
+            <td>
+              <%= best_in_place student,:name_chinese %>
+            </td>
+            <td>
+              <%= best_in_place student,:firstname %>
+            </td>
+            <td>
+              <%= best_in_place student,:lastname %>
+            </td>
+            <td>
+              <%= best_in_place student,:phone1 %>
+            </td>
+            <td>
+              <% if student.classinfos.any? %>
+                <% student.classinfos.where(:classlist_id => Classlist.where(active: true)).each do |classinfo| %>
+                  <%= link_to classinfo.classlist.classfullname, :controller => 'classlists', :action => 'show', :id => classinfo.classlist_id, target: '_blank'  %><br>
+                <% end %>
+              <%else%>
+                N/A
+              <%end%>
+            </td>
+            <td>
+              <%= link_to student.member.father_fullname, :controller => 'members', :action => 'show', :id => student.member_id %>
+              <br>
+              #: <%= student.member.father_phone1 %>
+              <br>
+              <%= link_to student.member.mother_fullname, :controller => 'members', :action => 'show', :id => student.member_id %>
+              <br>
+              #: <%= student.member.mother_phone1 %>
+            </td>
+            <td>
+              <%= link_to 'Detail', :controller => 'members', :action => 'show', :id => student.member_id %>
+              <br>
+              <%= link_to 'Edit', edit_student_path(student) %>
+              <br>
+              <%= link_to 'Dup', :controller => 'students', :action => :duplicate, :id => student.id %>
+            </td>
+          </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>    
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#dataTables-students').DataTable({
+            responsive: true
+    });
+});
+</script>
