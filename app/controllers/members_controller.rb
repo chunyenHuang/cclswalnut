@@ -23,6 +23,7 @@ class MembersController < ApplicationController
   end
 
   def show
+    @count = 1
     session[:return_to] = request.referer
     @members = Member.find(params[:id],params[:user_id],params[:teacher_id])
   end

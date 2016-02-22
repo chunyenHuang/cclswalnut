@@ -21,3 +21,12 @@
 .not-display{
   display: none;
 }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  text-align: center;
+  margin-left: auto;
+  width:100%;
+}

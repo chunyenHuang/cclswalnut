@@ -2,7 +2,7 @@ class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
   helper :headshot
-  authorize_resource 
+  authorize_resource
   respond_to :html, :json
 
 
@@ -17,16 +17,16 @@ class StudentsController < ApplicationController
   ###
 
   def index
-    session[:return_to] = request.referer  
+    session[:return_to] = request.referer
     @students = Student.order(sort_column + " " + sort_direction)
                        .paginate(page: params[:page], per_page: 10)
                        .search(params[:search])
   end
 
   def show
-    session[:return_to] = request.referer  
+    session[:return_to] = request.referer
     @students = Student.find(params[:id],params[:user_id],params[:member_id])
-    
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @student }
@@ -41,13 +41,13 @@ class StudentsController < ApplicationController
   ###
 
   def duplicate
-    session[:return_to] = request.referer  
+    session[:return_to] = request.referer
     @student = Student.find(params[:id],params[:user_id],params[:member_id],params[:teacher_id]).dup
     @student.current_step = session[:member_step]
   end
 
   def new
-    session[:return_to] = request.referer  
+    session[:return_to] = request.referer
     @student = Student.new(session[:student_params])
     @classlist = Classlist.order(year: :desc)
     @T=nil
@@ -60,22 +60,24 @@ class StudentsController < ApplicationController
   end
 
   def edit
-    session[:return_to] = request.referer   
+    session[:return_to] = request.referer
 
     @student = Student.find(params[:id],params[:user_id],params[:member_id],params[:class_id])
     @classlist = Classlist.order(year: :desc)
     @member_select=Member.order(mother_lastname: :asc)
     @M=@student.member.id
-    @T=@student.classinfos do |classinfo| 
+    @T=@student.classinfos do |classinfo|
         classinfo.class_id
       end
 
-    classinfo = @student.classinfos.build
+      1.times do
+        classinfo = @student.classinfos.build
+      end
 
   end
 
   def edit_transcript
-    session[:return_to] = request.referer   
+    session[:return_to] = request.referer
 
     @student = Student.find(params[:id])
     @find_classinfo = Classinfo.find(params[:classinfo_id])
@@ -90,18 +92,18 @@ class StudentsController < ApplicationController
     session[:student_params].deep_merge!(params[:student]) if params[:student]
     @student = current_user.students.new(session[:student_params])
     @student.current_step = session[:student_step]
-    
+
     if @student.valid?
         if params[:back_button]
           @student.previous_step
         elsif @student.last_step?
           @student.save if @student.all_valid?
-        else 
-          @student.next_step 
+        else
+          @student.next_step
         end
           session[:student_step] = @student.current_step
     end
-    
+
     if @student.new_record?
       render "new"
     else
@@ -141,7 +143,7 @@ class StudentsController < ApplicationController
 
   # select menu
 
-  
+
 ################################
 
   private
@@ -172,9 +174,8 @@ class StudentsController < ApplicationController
     def sort_column
       Student.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
     end
-    
+
     def sort_direction
       %w[desc asc].include?(params[:direction]) ? params[:direction] : "desc"
     end
 end
-
