@@ -4,6 +4,7 @@
  * Licensed under the MIT license
  */
 
+
  $(document).ready(function() {
    jQuery(".best_in_place").best_in_place();
    jQuery(function(){
