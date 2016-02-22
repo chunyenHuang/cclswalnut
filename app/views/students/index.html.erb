@@ -68,11 +68,10 @@
 </div>
 
 <script>
+
   $(document).ready(function() {
-      var table = $('#dataTables-students').DataTable();
-      $('#dataTables-students tbody').on('click', 'tr', function () {
-          var data = table.row( this ).data();
-          alert( 'You clicked on '+data[0]+'\'s row' );
-      } );
-  } );
+      $('#dataTables-students').DataTable({
+        responsive: true
+      });
+  });
 </script>

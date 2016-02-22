@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
   def index
     session[:return_to] = request.referer
-    @users = User.order(sort_column + " " + sort_direction).search(params[:search])
+    @users = User.all
   end
 
   def show

@@ -16,18 +16,15 @@ class ClasslistsController < ApplicationController
 
   def index
     session[:return_to] = request.referer
-    @classlists = Classlist.where(:active => true)
-                           .order(year: :desc,kind: :desc, class_name: :asc)
-                           .paginate(page: params[:page], per_page: 25)
-                           .search(params[:search])
+    @classlists = Classlist.where(:active => true).order(year: :desc,kind: :desc, class_name: :asc)
+                           #.paginate(page: params[:page], per_page: 25)
+                           #.search(params[:search])
   end
 
   def archive_classes
     session[:return_to] = request.referer
     @classlists = Classlist.where(:active => false)
                            .order(year: :desc,kind: :desc, class_name: :asc)
-                           .paginate(page: params[:page], per_page: 25)
-                           .search(params[:search])
   end
 
 

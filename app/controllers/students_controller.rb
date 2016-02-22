@@ -18,9 +18,7 @@ class StudentsController < ApplicationController
 
   def index
     session[:return_to] = request.referer
-    @students = Student.order(sort_column + " " + sort_direction)
-                       .paginate(page: params[:page], per_page: 10)
-                       .search(params[:search])
+    @students = Student.all
   end
 
   def show
