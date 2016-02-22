@@ -22,7 +22,7 @@
               <% if student.picture1.present? %>
                 <%= link_to(image_tag(student.picture1_url(:thumb), :height => "75", :border => 0), student )%>
               <%else%>
-                <img src="/images/default_profile.jpg" style="height:100px" />
+                <img src="/images/default_profile.jpg" style="height:50px">
               <% end %>
             </td>
             <td>
