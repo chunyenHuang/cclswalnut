@@ -1,98 +1,71 @@
-<div class="container">
+<div class="panel-body">
+  <div class="dataTable_wrapper">
+    <table class="table table-striped table-bordered table-hover" id="dataTables-classlists">
+      <thead>
+        <tr>
+				  <th>Activate</th>
+					<th><%= sortable "year", "Year" %></th>
+					<th><%= sortable "type", "Type" %></th>
+					<th><%= sortable "class_name", "Class" %></th>
+          <th>Picture</th>
+          <th><%= sortable "teacher_id", "Teacher" %></th>
+          <th><%= sortable "place", "Place" %></th>
+          <th><%= sortable "tuition", "Tuition" %></th>
+          <th><%= sortable "students", "Students" %></th>
+          <th><%= sortable "documents", "documents" %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @classlists.each do |classlist| %>
+          <tr>
+            <td>
+              <%= best_in_place classlist, :active, :type => :checkbox , collection: {false: "<i class='fa fa-square-o'></i>".html_safe, true: "<i class='fa fa-check-square-o'></i>".html_safe}, :class=>"cute-button-2"%>
+            </td>
+            <td>
+              <%= classlist.year %>
+            </td>
+            <td>
+              <%= classlist.kind %>
+            </td>
+            <td>
+              <%= classlist.class_name %>
+            </td>
+            <td>
+              <% if classlist.user.pic1.present? %>
+                <%= link_to(image_tag(classlist.user.pic1_url(:thumb), :height => "100", :border => 0), classlist.user )%>
+              <%else%>
+                <img src="/images/default_profile.jpg" style="height:100px" />
+              <%end%>
+            </td>
+            <td>
+              <%= classlist.user.name %>
+            </td>
+            <td>
+              <%= best_in_place classlist,:place %>
+            </td>
+            <td>
+              $<%= best_in_place classlist,:tuition %>
+            </td>
+            <td>
+              <%= classlist.studentcount %>
+            </td>
+            <td>
+              <%if classlist.classdocuments.any? %>
+              <%= classlist.classdocuments.count %>
+              <%else%>
+              <%= link_to 'Upload', {:controller=>'classlists',:action=>'uploaddocument',:id=>classlist.id},{:class=>"btn btn-danger btn-sm"}%>
+              <%end%>
+            </td>
 
-  <div class="row">
-    <div class="col-md-12">
-      <table class="table">
-        <thead>
-          <tr class="head">
-            <th>
-              Activate
-            </th>
-            <th>
-              <b><%= sortable "year", "Year" %>
-            </th>
-            <th>
-              <b><%= sortable "type", "Type" %>
-            </th>
-            <th>
-              <b><%= sortable "class_name", "Class" %>
-            </th>
-            
-            <th>
-              <b>Picture
-            </th>
-            <th>
-              <b><%= sortable "teacher_id", "Teacher" %>
-            </th>
-            <th>
-              <b><%= sortable "place", "Place" %>
-            </th>
-            <th>
-              <b><%= sortable "tuition", "Tuition" %>
-            </th>
-            <th>
-              <b>Students
-            </th>
-            <th>
-              <b>Docs
-            </th>
-            <th class="noprint">
-            </th>
+            <td class="noprint">
+              <%= link_to 'Detail', classlist, :class=>"btn btn-primary btn-xs btn-block" %>
+              <%= link_to 'Edit', edit_classlist_path(classlist), :class=>"btn btn-info btn-xs btn-block" %>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <% @classlists.each do |classlist| %>
-            <tr>
-              <td>
-                <%= best_in_place classlist, :active, :type => :checkbox , collection: {false: "<i class='fa fa-square-o'></i>".html_safe, true: "<i class='fa fa-check-square-o'></i>".html_safe}, :class=>"cute-button-2"%>
-              </td>
-              <td>
-                <%= classlist.year %>
-              </td>
-              <td>
-                <%= classlist.kind %>
-              </td>
-              <td>
-                <%= classlist.class_name %>
-              </td>
-              
-              <td>
-                <% if classlist.user.pic1.present? %>
-                  <%= link_to(image_tag(classlist.user.pic1_url(:thumb), :height => "100", :border => 0), classlist.user )%>
-                <%else%>
-                  <img src="/images/default_profile.jpg" style="height:100px" />
-                <%end%>
-              </td>
-              <td>
-                <%= classlist.user.name %>
-              </td>
-              <td>
-                <%= best_in_place classlist,:place %>
-              </td>
-              <td>
-                $<%= best_in_place classlist,:tuition %>
-              </td>
-              <td>
-                <%= classlist.studentcount%>
-              </td>
-              <td>
-                <%if classlist.classdocuments.any? %>
-                <%= classlist.classdocuments.count %>
-                <%else%>
-                <%= link_to 'Upload', {:controller=>'classlists',:action=>'uploaddocument',:id=>classlist.id}%>
-                <%end%>
-              </td>
-              
-              <td class="noprint">
-                <%= link_to 'Detail', classlist %> | 
-                <%= link_to 'Edit', edit_classlist_path(classlist) %>
-                
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+        <%end%>
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -100,15 +73,19 @@
   <div class="noprint">
     <div class="row">
       <div class="col-md-12" style="vertical-align:middle;text-align:center;">
-          <a href="/classlists/new" class="cute-button-2">New Class</a>
-          <a href="?direction=desc&sort=updated_at" class="cute-button-2">Update</a>
-          <a href="/classlists/" class="cute-button-2">Current</a>
-          <a href="/classlists/archive_classes" class="cute-button-2">Archived</a>
-
-          <a href="#" onclick="window.print();return false;" class="cute-button-2">PrintPage</a>
-
-        </center>
+          <a href="/classlists/new" class="btn btn-primary">New Class</a>
+          <a href="/classlists/" class="btn btn-success">Current</a>
+          <a href="/classlists/archive_classes" class="btn btn-danger">Archived</a>
+          <a href="#" onclick="window.print();return false;" class="btn btn-default">PrintPage</a>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+      $('#dataTables-classlists').DataTable({
+              responsive: true
+      });
+  });
+</script>

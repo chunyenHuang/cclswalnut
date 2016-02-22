@@ -13,7 +13,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    #{}"#{Rails.root}/tmp/uploads"
+    # "#{Rails.root}/tmp/uploads"
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
@@ -38,11 +38,11 @@ class PictureUploader < CarrierWave::Uploader::Base
    process :resize_to_fit => [550, 425]
   end
 =begin
-def cover 
+def cover
     manipulate! do |frame, index|
       frame if index.zero?
     end
-  end   
+  end
 
 
 version :thumbpdf , :if => :image? do

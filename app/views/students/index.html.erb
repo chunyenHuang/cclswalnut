@@ -9,7 +9,9 @@
 					<th><%= sortable "lastname", "Lastname" %></th>
           <th><%= sortable "phone1", "Phone#" %></th>
 					<th><%= sortable "class", "current class" %></th>
-					<th><%= sortable "member_id", "Parents" %></th>
+					<th><%= sortable "father_fullname", "Father" %></th>
+          <th><%= sortable "mother_fullname", "Mother" %></th>
+
 					<th></th>
         </tr>
       </thead>
@@ -48,29 +50,28 @@
               <%= link_to student.member.father_fullname, :controller => 'members', :action => 'show', :id => student.member_id %>
               <br>
               #: <%= student.member.father_phone1 %>
-              <br>
+            </td>
+            <td>
               <%= link_to student.member.mother_fullname, :controller => 'members', :action => 'show', :id => student.member_id %>
               <br>
               #: <%= student.member.mother_phone1 %>
             </td>
             <td>
-              <%= link_to 'Detail', :controller => 'members', :action => 'show', :id => student.member_id %>
-              <br>
-              <%= link_to 'Edit', edit_student_path(student) %>
-              <br>
-              <%= link_to 'Dup', :controller => 'students', :action => :duplicate, :id => student.id %>
+              <%= link_to 'Detail', {:controller => 'members', :action => 'show', :id => student.member_id}, {:class=>"btn btn-primary btn-xs btn-block"} %>
+              <%= link_to 'Edit', edit_student_path(student), :class=>"btn btn-info btn-xs btn-block" %>
+              <%= link_to 'Dup', {:controller => 'students', :action => :duplicate, :id => student.id}, {:class=>"btn btn-success btn-xs btn-block"} %>
             </td>
           </tr>
         <%end%>
       </tbody>
     </table>
-  </div>    
+  </div>
 </div>
 
 <script>
-$(document).ready(function() {
-    $('#dataTables-students').DataTable({
-            responsive: true
-    });
-});
+  $(document).ready(function() {
+      $('#dataTables-students').DataTable({
+              responsive: true
+      });
+  });
 </script>

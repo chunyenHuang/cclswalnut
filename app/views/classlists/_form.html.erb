@@ -11,31 +11,36 @@
     </div>
   <% end %>
 
-  <div class="container">    
-    <div class="row">
-      <div class="col-sm-2 col-sm-offset-4">
-        <%= f.check_box :active, :checked=>true, label: "Is this Class Actived?" %> 
-        <%= f.text_field :year, :value=>@yearnow %>
-        <%= f.text_field :date_from, :data=>{:provide => "datepicker"} %>
-        <%= f.text_field :date_to, :data=>{:provide => "datepicker"} %>
-        <%= f.text_field :time_from %>
-        <%= f.text_field :time_to %>
-        <%= f.text_field :class_name%>
-        <%= f.select(:kind,[['周六班'],['課後班'],['暑期班'],['才藝班'],['成人班'],['其他']])%>
-        <%= f.text_field :place %>
-        <%= f.text_field :tuition %>
-        <%= f.text_field :tuition_count %>
-        <%= f.text_area :note, cols: "30", rows: "5" %>
-      </div>
-      <div class="col-sm-2">  
-        <%= f.select(:teacher_id, options_from_collection_for_select(@teacher_select, :id, :name, @T), {:prompt => "select..."}, {multiple: false, size: 25}) %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      Add a new class
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-4">
+          <%= f.check_box :active, :checked=>true, label: "Is this Class Actived?" %>
+          <%= f.text_field :year, :value=>@yearnow %>
+          <%= f.text_field :date_from, :data=>{:provide => "datepicker"} %>
+          <%= f.text_field :date_to, :data=>{:provide => "datepicker"} %>
+          <%= f.text_field :time_from %>
+          <%= f.text_field :time_to %>
+        </div>
+        <div class="col-md-4">
+          <%= f.text_field :class_name%>
+          <%= f.select(:kind,[['周六班'],['課後班'],['暑期班'],['才藝班'],['成人班'],['其他']])%>
+          <%= f.text_field :place %>
+          <%= f.text_field :tuition %>
+          <%= f.text_field :tuition_count %>
+          <%= f.text_area :note, cols: "30", rows: "5" %>
+        </div>
+        <div class="col-md-4">
+          <%= f.select(:teacher_id, options_from_collection_for_select(@teacher_select, :id, :name, @T), {:prompt => "select..."}, {multiple: false, size: 25}) %>
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12" style="text-align:center;">
-        <div class="actions">
-          <%= f.submit %>
-        </div>
+      <div class="col-sm-12">
+        <%= f.submit :class=>"btn btn-lg btn-primary btn-block" %>
       </div>
     </div>
   </div>

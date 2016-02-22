@@ -2,97 +2,61 @@
   <%= f.select(:user_name, [[current_user.name , current_user.name ]]) %>
   <%= f.select(:user_id, [[current_user.id , current_user.name ]]) %>
 </div>
-
-<div class="container">    
-  <div class="row">
-    <div class="col-sm-12">
-      <h3>Children 學生小孩</h3>
+<div class="col-md-6">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      Children 學生小孩
     </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-2">
-      <%= f.text_field :name_chinese %>  
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :firstname %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :lastname %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :middlename %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.file_field :picture1 %>
-    </div>
-    <div class="col-sm-2">
-      <%= f.file_field :picture2 %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-2">
-      <%= f.text_field :nickname %>  
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :birthday, :data=>{:provide => "datepicker"} %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-2">
-      <%= f.text_field :phone1, :id=>"phone" %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :phone2, :id=>"phone2" %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :phone3, :id=>"phone3" %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :email1 %>  
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :email2 %>  
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-2">
-      <%= f.select :school_elementary, grouped_options_for_select={
-                    "San Marino" => [['Carver'],['Valentine'],['Clairbourn']],
-                    'Other' => [['other1'],['other2']]
-                  } , :prompt => "please select..."
-                  %>
-    </div>
-    <div class="col-sm-2">
-      <%= f.select :school_junior, grouped_options_for_select={
-                    "San Marino" => [['Huntington Middle School']],
-                    'Other' => [['other1'],['other2']]
-                  } , :prompt => "please select..."
-                  %>
-    </div>
-    <div class="col-sm-2">
-      <%= f.select :school_high, grouped_options_for_select={
-                    "San Marino" => [['San Marino High School']],
-                    'Other' => [['other1'],['other2']]
-                  } , :prompt => "please select..."
-                  %>
-    </div>
-    <div class="col-sm-4">        
-      <%= f.text_area :note, rows: "5" %>
-    </div>
-  </div>
-  <% if current_user.has_role? :admin %>
-    <div class="row">
-      <div class="col-sm-2" style="padding:10px;">
-        <p><b>Class Info</b>
-        <%= f.fields_for :classinfos do |builder| %>
-        <%= render "classinfo_fields", :f => builder %>
-        <% end %>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.text_field :name_chinese %>
+          <%= f.text_field :firstname %>
+          <%= f.text_field :lastname %>
+          <%= f.text_field :middlename %>
+          <%= f.file_field :picture1 %>
+          <%= f.file_field :picture2 %>
+          <%= f.text_area :note, rows: "5" %>
+        </div>
+        <div class="col-md-6">
+          <%= f.text_field :nickname %>
+          <%= f.text_field :birthday, :data=>{:provide => "datepicker"} %>
+          <%= f.text_field :phone1, :id=>"phone" %>
+          <%= f.text_field :phone2, :id=>"phone2" %>
+          <%= f.text_field :phone3, :id=>"phone3" %>
+          <%= f.text_field :email1 %>
+          <%= f.text_field :email2 %>
+        </div>
       </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.select :school_elementary, grouped_options_for_select={
+                        "San Marino" => [['Carver'],['Valentine'],['Clairbourn']],
+                        'Other' => [['other1'],['other2']]
+                      } , :prompt => "please select..."
+                      %>
+          <%= f.select :school_junior, grouped_options_for_select={
+                        "San Marino" => [['Huntington Middle School']],
+                        'Other' => [['other1'],['other2']]
+                      } , :prompt => "please select..."
+                      %>
+          <%= f.select :school_high, grouped_options_for_select={
+                        "San Marino" => [['San Marino High School']],
+                        'Other' => [['other1'],['other2']]
+                      } , :prompt => "please select..."
+                      %>
+        </div>
+      </div>
+      <% if current_user.has_role? :admin %>
+        <hr>
+            <p><b>Class Info</b>
+            <%= f.fields_for :classinfos do |builder| %>
+            <%= render "classinfo_fields", :f => builder %>
+            <% end %>
+      <%end%>
     </div>
-  <%end%>
-</div>
-<div class="container">
-  <div class="actions">
-      <center><div class="actions"><%= f.submit "Apply Now" %></div>
   </div>
+  <div class="actions"><%= f.submit "Apply Now", :class =>"btn btn-primary btn-lg btn-block" %></div>
+  <br><br>
 </div>

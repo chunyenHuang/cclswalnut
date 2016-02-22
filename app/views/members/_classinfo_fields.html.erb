@@ -1,6 +1,1 @@
-<div class="row">
-	<hr class="style1"><br>
-	<div class="col-sm-12">
-	<%= f.select :classlist_id, Classlist.where(active: true).map { |i| [i.classfullname, i.id ] }, :prompt => "select...",:size=>5 %>
-	</div>
-</div>
+	<%= f.select :classlist_id, Classlist.where(active: true).map { |i| [i.classfullname, i.id ] }, :prompt => "select...",:size=>5, :label=>"Class" %>

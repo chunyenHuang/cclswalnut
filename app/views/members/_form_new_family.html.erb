@@ -1,128 +1,95 @@
 <%= bootstrap_form_for(@member) do |f| %>
 <div class="not-display"><%= f.select(:user_name, [[current_user.name , current_user.name ]]) %></div>
 
-<div class="container">    
-  <div class="row">
-    <div class="col-sm-12">
-      <h3>Mother 母親</h3>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        Mother 母親
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+            <%= f.text_field :mother_name_chinese, :label=>"中文姓名" %>
+            <%= f.text_field :mother_firstname, :label=>"First Name" %>
+            <%= f.text_field :mother_lastname, :label=>"Last Name" %>
+            <%= f.text_field :mother_middlename, :label=>"Middle Name" %>
+            <%= f.file_field :mother_picture %>
+          </div>
+          <div class="col-md-6">
+            <%= f.text_field :mother_phone1, :id=>"phone", :label=>"Mobile Phone" %>
+            <%= f.text_field :mother_phone2, :id=>"phone2", :label=>"Home Phone" %>
+            <%= f.text_field :mother_phone3, :id=>"phone3", :label=>"Work Phone" %>
+            <%= f.text_field :mother_email1, :label=>"Email1",:placeholder=>"your@email.com" %>
+            <%= f.text_field :mother_email2, :label=>"Email2",:placeholder=>"your@email.com" %>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-5">
+            <%= f.text_field :address1_street, :label=>"Address Street" %>
+          </div>
+          <div class="col-sm-3">
+            <%= f.text_field :address1_city, :label=>"City" %>
+          </div>
+          <div class="col-sm-2">
+            <%= f.text_field :address1_state, :label=>"State" %>
+          </div>
+          <div class="col-sm-2">
+            <%= f.text_field :address1_zipcode, :label=>"Zipcode" %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-2">
-      <%= f.text_field :mother_name_chinese, :label=>"中文姓名" %>  
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :mother_firstname, :label=>"First Name" %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :mother_lastname, :label=>"Last Name" %> 
-    </div>
-    <div class="col-sm-2 col-sm-offset-right-4">
-      <%= f.text_field :mother_middlename, :label=>"Middle Name" %> 
-    </div>
-
-    <div class="col-sm-3">
-      <%= f.file_field :mother_picture %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-2">
-      <%= f.text_field :mother_phone1, :id=>"phone", :label=>"Mobile Phone" %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :mother_phone2, :id=>"phone2", :label=>"Home Phone" %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :mother_phone3, :id=>"phone3", :label=>"Work Phone" %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :mother_email1, :label=>"Email1",:placeholder=>"your@email.com" %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :mother_email2, :label=>"Email2",:placeholder=>"your@email.com" %>  
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-2">
-      <%= f.text_field :address1_street, :label=>"Address Street" %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :address1_city, :label=>"City" %> 
-    </div>
-    <div class="col-sm-1">
-      <%= f.text_field :address1_state, :label=>"State" %> 
-    </div>
-    <div class="col-sm-1">
-      <%= f.text_field :address1_zipcode, :label=>"Zipcode" %> 
-    </div>
-  </div>
-</div>
-<!--mother container-->
-<div class="container">    
-  <div class="row">
-    <div class="col-sm-12">
-      <h3>Father 父親</h3>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-2">
-      <%= f.text_field :father_name_chinese, :label=>"中文姓名" %>  
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :father_firstname, :label=>"First Name" %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :father_lastname, :label=>"Last Name" %> 
-    </div>
-    <div class="col-sm-2 col-sm-offset-right-4">
-      <%= f.text_field :father_middlename, :label=>"Middle Name" %> 
-    </div>
-    <div class="col-sm-3">
-      <%= f.file_field :father_picture %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-2">
-      <%= f.text_field :father_phone1, :id=>"phone", :label=>"Mobile Phone" %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :father_phone2, :id=>"phone2", :label=>"Home Phone" %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :father_phone3, :id=>"phone3", :label=>"Work Phone" %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :father_email1, :label=>"Email1",:placeholder=>"your@email.com" %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :father_email2, :label=>"Email2",:placeholder=>"your@email.com" %>  
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-2">
-      <%= f.text_field :address2_street, :label=>"Address Street" %> 
-    </div>
-    <div class="col-sm-2">
-      <%= f.text_field :address2_city, :label=>"City" %> 
-    </div>
-    <div class="col-sm-1">
-      <%= f.text_field :address2_state, :label=>"State" %> 
-    </div>
-    <div class="col-sm-1">
-      <%= f.text_field :address2_zipcode, :label=>"Zipcode" %> 
-    </div>
-    <div class="col-sm-3">
-      <%= f.check_box :check_address_same, :label=>"Same Address as Mother's" %>
+  <div class="col-md-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+          Father 父親
+        </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+            <%= f.text_field :father_name_chinese, :label=>"中文姓名" %>
+            <%= f.text_field :father_firstname, :label=>"First Name" %>
+            <%= f.text_field :father_lastname, :label=>"Last Name" %>
+            <%= f.text_field :father_middlename, :label=>"Middle Name" %>
+            <%= f.file_field :father_picture %>
+          </div>
+          <div class="col-md-6">
+            <%= f.text_field :father_phone1, :id=>"phone", :label=>"Mobile Phone" %>
+            <%= f.text_field :father_phone2, :id=>"phone2", :label=>"Home Phone" %>
+            <%= f.text_field :father_phone3, :id=>"phone3", :label=>"Work Phone" %>
+            <%= f.text_field :father_email1, :label=>"Email1",:placeholder=>"your@email.com" %>
+            <%= f.text_field :father_email2, :label=>"Email2",:placeholder=>"your@email.com" %>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-5">
+            <%= f.text_field :address2_street, :label=>"Address Street" %>
+          </div>
+          <div class="col-md-3">
+            <%= f.text_field :address2_city, :label=>"City" %>
+          </div>
+          <div class="col-md-2">
+            <%= f.text_field :address2_state, :label=>"State" %>
+          </div>
+          <div class="col-md-2">
+            <%= f.text_field :address2_zipcode, :label=>"Zipcode" %>
+          </div>
+          <div class="col-md-12">
+            <%= f.check_box :check_address_same, :label=>"Same Address as Mother's", :checked => true %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-<!--father container-->
+<div class="row">
+  <%= f.fields_for :students do |builder| %>
+    <%= render "student_new_fields", :f => builder %>
+  <% end %>
+</div>
 
-<%= f.fields_for :students do |builder| %>
-  <%= render "student_new_fields", :f => builder %>
 <% end %>
-  
-<% end %>
-
-
-

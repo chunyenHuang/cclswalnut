@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
-  authorize_resource 
+  authorize_resource
   respond_to :html, :json
 
 
@@ -23,12 +23,12 @@ class MembersController < ApplicationController
   end
 
   def show
-    session[:return_to] = request.referer  
+    session[:return_to] = request.referer
     @members = Member.find(params[:id],params[:user_id],params[:teacher_id])
   end
 
   def show_payments
-    session[:return_to] = request.referer  
+    session[:return_to] = request.referer
     @member = Member.find(params[:id],params[:user_id],params[:teacher_id])
   end
 
@@ -37,16 +37,16 @@ class MembersController < ApplicationController
 
 
   def new
-    session[:return_to] = request.referer  
+    session[:return_to] = request.referer
     @member = Member.new
   end
 
   def new_family
-    session[:return_to] = request.referer  
+    session[:return_to] = request.referer
     @member = Member.new
     @classlist = Classlist.order(year: :desc)
     @T=nil
-    
+
     3.times do
       student = @member.students.build
       3.times { student.classinfos.build }
@@ -54,25 +54,25 @@ class MembersController < ApplicationController
   end
 
   def payment
-    session[:return_to] = request.referer   
-    
+    session[:return_to] = request.referer
+
     @member = Member.find(params[:id])
     3.times do
       payment = @member.payments.build
     end
-  end  
+  end
 
   def edit
-    session[:return_to] = request.referer   
+    session[:return_to] = request.referer
 
     @member = Member.find(params[:id])
     @student = Student.find(params[:id],params[:user_id],params[:member_id],params[:class_id])
     @classlist = Classlist.order(year: :desc)
     @member_select=Member.order(mother_lastname: :asc)
-    @T=@student.classinfos do |classinfo| 
+    @T=@student.classinfos do |classinfo|
         classinfo.class_id
       end
-      
+
     2.times do
       student = @member.students.build
       3.times { student.classinfos.build }
@@ -106,6 +106,10 @@ class MembersController < ApplicationController
         else
           format.html { render :new_family }
           format.json { render json: @member.errors, status: :unprocessable_entity }
+          3.times do
+          student = @member.students.build
+          3.times { student.classinfos.build }
+        end
         end
       end
     end
@@ -123,7 +127,7 @@ class MembersController < ApplicationController
         format.json {respond_with_bip(@member)}
         format.json { render json: @member.errors, status: :unprocessable_entity }
       end
-    end  
+    end
   end
 
 
@@ -154,14 +158,14 @@ private
       :check_address_same,
       students_attributes: [:id, :user_id,:user_name,:teacher_id,:member_id,:created_at,:updated_at,:name_chinese,
                             :firstname,:middlename,:lastname,:nickname, :phone1,:phone2,:phone3,:email1,:email2,
-                            :school_elementary,:school_junior,:school_high,:address,:birthday,:picture1,:picture2,:note, 
+                            :school_elementary,:school_junior,:school_high,:address,:birthday,:picture1,:picture2,:note,
                             classinfos_attributes: [:id, :classlist_id, :year, :class_name, :teacher_id,:transcript,
                                                     :note,:check_pay,:tuition]
                             ],
       payments_attributes: [:id, :created_at,:updated_at, :user_id, :member_id,
-                            :amount, :checknumber, :cash, :note, 
+                            :amount, :checknumber, :cash, :note,
                             :picture1, :picture2, :picture3, :picture4
-      ] 
+      ]
 
     )
   end
@@ -171,7 +175,7 @@ private
     def sort_column
       Member.column_names.include?(params[:sort]) ? params[:sort] : "id"
     end
-    
+
     def sort_direction
       %w[desc asc].include?(params[:direction]) ? params[:direction] : "asc"
     end

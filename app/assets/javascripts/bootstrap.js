@@ -4,6 +4,11 @@
  * Licensed under the MIT license
  */
 
+ $(document).ready(function() {
+   jQuery(".best_in_place").best_in_place();
+ });
+
+
  $('#user').hover(function() {
     $('#popup').show();
 }, function() {

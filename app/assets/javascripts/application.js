@@ -30,4 +30,3 @@
 //= require bootstrap.file-input.js
 //= require turbolinks
 //= require_tree .
-

@@ -1,1 +1,83 @@
-<%= render 'view_in_table' %>
+<div class="panel-body">
+  <div class="dataTable_wrapper">
+    <table class="table table-striped table-bordered table-hover" id="dataTables-students">
+      <thead>
+        <tr>
+				  <th>Picture</th>
+					<th><%= sortable "father_name_chinese", "姓名" %></th>
+					<th><%= sortable "father_firstname", "Firstname" %></th>
+					<th><%= sortable "father_lastname", "Lastname" %></th>
+          <th><%= sortable "father_phone1", "Phone#" %></th>
+          <th>Picture</th>
+          <th><%= sortable "mother_name_chinese", "姓名" %></th>
+          <th><%= sortable "mother_firstname", "Firstname" %></th>
+          <th><%= sortable "mother_lastname", "Lastname" %></th>
+          <th><%= sortable "mother_phone1", "Phone#" %></th>
+          <th><%= sortable "children-number", "Children" %></th>
+          <th><%= sortable "balance", "Balance" %></th>
+          <th><%= sortable "lastpay", "Last Pay" %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @members.each do |member| %>
+          <tr>
+            <td>
+              <% if member.father_picture.present?%>
+                <%= link_to(image_tag(member.father_picture_url(:thumb), :height => "75", :border => 0), member )%>
+              <%else%>
+                <img src="/images/default_profile.jpg" style="height:50px" />
+              <%end%>
+            </td>
+            <td><%= best_in_place member,:father_name_chinese %></td>
+            <td><%= member.father_firstname %></td>
+            <td><%= member.father_lastname %></td>
+            <td><%= best_in_place member,:father_phone1 %></td>
+
+            <td>
+              <% if member.mother_picture.present?%>
+                <%= link_to(image_tag(member.mother_picture_url(:thumb), :height => "75", :border => 0), member )%>
+              <%else%>
+                <img src="/images/default_profile.jpg" style="height:50px" />
+              <%end%>
+            </td>
+            <td><%= best_in_place member,:mother_name_chinese %></td>
+            <td><%= member.mother_firstname %> </td>
+            <td><%= member.mother_lastname %></td>
+            <td><%= best_in_place member,:mother_phone1 %></td>
+
+            <td><%= member.studentcount %></td>
+            <td>
+                <% if member.balance.to_f <= 0%>
+                  <font color="blue">$<%=member.balance%></font>
+                <%else%>
+                  <font color="red">$<%=member.balance%></font>
+                <%end%>
+                <br><br>
+                <%= link_to 'Pay', {:controller=>:members, :action=>:payment, :id=>member.id },{:class=>"btn btn-danger btn-xs btn-block"} %>
+            </td>
+            <td>
+              <% if member.payments.any? %>
+                <% member.payments.order(created_at: :desc,amount: :asc).last(1).each do |payment| %>
+                  <%= payment.created_at.strftime("%b%d") %>
+                <%end%>
+              <%end%>
+            </td>
+            <td>
+              <%= link_to 'Detail', member, :class=>"btn btn-primary btn-xs btn-block" %>
+              <%= link_to 'Edit', edit_member_path(member), :class=>"btn btn-info btn-xs btn-block"  %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+      $('#dataTables-students').DataTable({
+              responsive: true
+      });
+  });
+</script>
