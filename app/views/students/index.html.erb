@@ -59,7 +59,6 @@
             <td>
               <%= link_to 'Detail', {:controller => 'members', :action => 'show', :id => student.member_id}, {:class=>"btn btn-primary btn-xs btn-block"} %>
               <%= link_to 'Edit', edit_student_path(student), :class=>"btn btn-info btn-xs btn-block" %>
-              <%= link_to 'Dup', {:controller => 'students', :action => :duplicate, :id => student.id}, {:class=>"btn btn-success btn-xs btn-block"} %>
             </td>
           </tr>
         <%end%>
@@ -70,8 +69,10 @@
 
 <script>
   $(document).ready(function() {
-      $('#dataTables-students').DataTable({
-              responsive: true
-      });
-  });
+      var table = $('#dataTables-students').DataTable();
+      $('#dataTables-students tbody').on('click', 'tr', function () {
+          var data = table.row( this ).data();
+          alert( 'You clicked on '+data[0]+'\'s row' );
+      } );
+  } );
 </script>
